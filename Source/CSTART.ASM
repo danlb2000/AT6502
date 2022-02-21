@@ -1,0 +1,14 @@
+;  filename CSTART.MAC
+;	.NLIST MD,MC,ME,BYT,CND,LD,SYM,BEX
+~.INCLUDE HLL65F
+~.ASECT
+~.ENABLE AMA
+~.ENABLE LC
+~.RADIX 16
+~.LIST ME
+;  macros
+~.INCLUDE CMAC.MAC
+;  zero page storage and global definitions
+~.INCLUDE CG.MAC
+VC.SN=0CCE0
+VC.IN=0E000

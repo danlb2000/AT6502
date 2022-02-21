@@ -1,0 +1,35 @@
+	IFEQ
+	LDA #2E
+	ELSE
+	LDA #37
+	ENDIF
+	
+	C845: D0 05         bne  $C84C
+C847: A9 2E         lda  #$2E
+C849: 4C 4E C8      jmp  $C84E
+C84C: A9 37         lda  #$37
+	
+	
+DEFIF	IFEQ,BNE
+
+.MACRO	DEFIF	IFEQ,BNE
+	.NOCROSS IFEQ
+  .MACRO IFEQ
+	IFXX	BNE
+	.ENDM
+	.ENDM
+		
+.MACRO	IFXX	BNE
+	LOC 0
+	BNE	.
+	.ENDM
+
+
+.MACRO	LOC type
+	$INDEN
+	.PUSH REGSAV,...P0,...S0,...P1,...S1
+	...P0 = .
+	...S0 = type
+	.PUSH PC,...P0,...S0
+	.POP REGSAV,...S1,...P1,...S0,...P0
+	.ENDM

@@ -1,0 +1,1 @@
+copy "C:\Users\Dan\Documents\Visual Studio 2019\Projects\AT6502\RomTool\bin\Debug\romtool.*" "D:\Data\CCTest"

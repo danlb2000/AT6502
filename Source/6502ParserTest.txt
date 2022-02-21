@@ -1,0 +1,102 @@
+;Comment
+
+;PsuedoOp Conditional
+~.IIF NDF,FTEST,FTEST=0	
+~.IF EQ,MECHS-3	
+~.ENDC
+~.IFT			;MECHS=1
+~.IFTF			;ANY # OF MECHS
+~.IFF			;IF MECHS>1
+
+;psuedoOp message
+~.TITLE ROOT
+~.WARN .	;  cgr
+~.SBTTL " COIN65 - 650X 'UNIVERSAL' COIN ROUTINE"
+~.ERROR
+~.ERROR ..NST$ ; STACK UNDERFLOW 
+~.PRINT	;THE SAME TIME.SORRY.
+
+;Pseduo ops control
+~.INCLUDE CSTART.MAC
+~.ASECT
+~.ENABLE LC
+~.ENABL LC
+~.RADIX 16
+~.RADIX .RAD
+~.LIST ME
+~.PAGE
+~.GLOBL $BCCNT
+~.GLOBL $LMTIM,$CNCT  
+~.DEFSTACK PC,..STK$
+~.PUSH REGSAV,...S1
+~.POP REGSAV,...S1
+~.REPT OFFSET
+
+;Pseudo Op Memory decl
+TS.PXD:	.BLKB 1
+SQ.LS1: .BLKB SQ.NUM+1
+~.BYTE 40,20,10,10, 10,10, 8, 8
+~.WORD SC.HI1,SC.HI2,SC.HI3
+~.ASCII	"/  (C) 1983 ATARI ALL RIGHTS RESERVED/"
+~.VCTRS 0FFF8,INTER,INTER,START,INTER
+
+;Define Macro
+.MACRO CMPIN A,B
+.ENDM
+.MACRO BINT INTVAL,?B,?C
+
+;Macro call
+~TRAI 0FF ATRACT
+~TRAM   HFPSCO(Y) SC.HS1(X)
+~BEGIN
+$CNVRT:	GCM	
+
+;Assignment
+~.= WV.STR	;  split storage: program
+~CTROM = .
+~.RAD=10
+VC.IN=0E000
+MD0	= 01
+POKCT0	= 0F+POKEY0
+
+;Values
+~LDA 0FF
+~LDA 20
+~LDA ^H5A
+~LDA ^B01011010
+
+;Expression
+~EW.NUM=16+2-WV.STR*2/VC.SN
+~EW.BLK=EW.NUM+1
+~LDX OFFSET*<EMCTRS-1>
+~TEST=BLK&0F0!NUM
+
+;Labels
+DF.CRT:
+DF.CRN: .BYTE 3
+20$:
+11$:	LSR
+5$:;    [AND I,31.]             GET COIN-ON DOWN-CTR (ACTUALLY DONE BEFORE)
+$LABEL:
+
+;Addressing modes
+~RTS			;Implied
+~LSR  	        ;Accumulator
+~BMI 20$		;Relative
+~LDY #0			;Immediate
+~LDX #HFSIZ-3   ;Immediate
+~LDX I,OFFSET   ;Immediate
+~STA ZX,$CNSTT  ;Zero page X
+~STA Z,$PSTSL	;Zero page
+~STA 0F000		;Absolute
+~STA X,$CNCT	;Absolute X
+~LDA EN.LMD(X)  ;Absolute X
+~STA Y,$CNCR	;Absolute Y
+~STA DF.INX(Y)  ;Absolute Y
+~STA NY,APTRC   ;Indirect Y
+~STA NX,APTRC   ;Indirect Y?
+
+~STA @EZ.MA2(Y) ;Indirect Y
+
+
+

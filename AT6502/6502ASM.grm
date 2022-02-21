@@ -1,0 +1,131 @@
+"Start Symbol"   = <Lines>
+
+{WS}           = {Whitespace} - {CR} - {LF}
+{String Chars} = {Printable} - ["]
+   
+Remark         = ';'{Printable}*              
+NewLine        = {CR}{LF}|{CR}
+Whitespace     = {WS}+         
+String         = '"'{String Chars}*'"'                 
+{Const Char}   = {Digit} + [abcdef] + [ABCDEF] +[.] 
+NonTypedConstant       = {Digit}+{Const Char}*           
+HexConstant    = '^H'[0123456789ABCDEF]+
+BinaryConstant = '^B'[01]*
+{Identifier Characters} = {AlphaNumeric} + [.$]   
+{Identifier Start} = {Letter} + [.$?]       
+LocalIdentifier = {Digit}+[$]              
+GlobalIdentifier = {Identifier Start}{Identifier Characters}*
+             
+<Opt Remark> ::= Remark
+           |   
+
+<Identifier> ::= LocalIdentifier
+               | GlobalIdentifier  
+                
+<Identifier List> ::=  <Identifier> ',' <Identifier List>  
+                     | <Identifier>  <Identifier List>              
+                     | <Identifier>
+             
+<Expression List> ::= <Expression> ',' <Expression List>
+                   | <Expression>  <Expression List>
+                   | <Expression>
+                               
+<nl> ::= NewLine
+                   
+<Value> ::= NonTypedConstant 
+           |HexConstant 
+           |BinaryConstant 
+           |<Identifier>
+           |'<'<Expression>'>'
+           |'.'
+
+<AddrMode> ::= '#'
+             | 'I,'
+             | '@'  
+                       
+<Indirect> ::= '(X)'
+               |'(Y)'
+
+<Label Seperator> ::= ':'
+                   | '::'
+
+<Expression> ::= <BinaryExpression> 
+               | <BinaryExpression> <Indirect>
+               | <AddrMode> <BinaryExpression>
+               | <AddrMode> <BinaryExpression> <Indirect>
+
+<BinaryExpression> ::= <BinaryExpression>'&' <Value> 
+                      | <BinaryExpression> '!' <Value> 
+                      | <BinaryExpression> '+' <Value>          
+                      | <BinaryExpression> '-' <Value> 
+                      | <BinaryExpression> '*' <Value> 
+                      | <BinaryExpression> '/' <Value>       
+                      | <Value>    
+
+<Lines> ::= <Line> <Lines>
+           | <Line> 
+           
+
+<Line> ::= <Identifier> <Label Seperator> <Statement> <Opt Remark> <nl>
+           |<Identifier> <Label Seperator><Opt Remark> <nl>
+           |'~'<Statement> <Opt Remark> <nl>
+           |<Statement> <Opt Remark> <nl>
+           |<Identifier>'='<Expression> <Opt Remark> <nl>
+           |<Identifier>'=='<Expression> <Opt Remark> <nl>
+           |'~'<Identifier>'='<Expression> <Opt Remark> <nl>
+           |Remark <nl>
+           |'~'Remark <nl>
+           |'~.=' <Expression> <Opt Remark> <nl>
+           |'.=' <Expression> <Opt Remark> <nl>
+           |<nl>
+
+<PsuedoNoOps> ::= '.IFT' 
+                  |'.IFF'
+                  |'.ERROR'
+                  |'.ASECT'
+                  |'.ENDC'
+                  |'.PAGE'
+                  |'.ENDM'
+
+<PsuedoIdenfitierListOps> ::= '.ENABLE'
+                          | '.ENABL'
+                          | '.LIST'   
+                          | '.INCLUDE'
+                          | '.GLOBL'
+                          | '.MACRO'      
+                          | '.ERROR'
+                          | '.NOCROSS'
+                          | '.CROSS' 
+                                           
+
+<PsuedoExpressionOp> ::= '.RADIX'
+                         | '.BLKB'   
+                         | '.REPT'                        
+                         
+<PsuedoExpressionListOp> ::= '.IF'                          
+                            |'.BYTE'
+                            |'.WORD'
+
+<PseudoPrintable> ::= '.ASCII'
+                    | '.SBTTL'  
+                                                                                          
+<PseudoIdentifierExpression> ::= '.DEFSTACK'
+                              | '.PUSH'
+                              | '.POP'
+                                                                           
+<Statement> ::= <PsuedoNoOps> 
+             | <PsuedoIdenfitierListOps> <Identifier List>
+             | <PsuedoExpressionOp> <Expression>
+             | <PsuedoExpressionListOp> <Expression List>
+             |<PseudoPrintable> String
+             |<Identifier>
+             |<Identifier> <Expression List>
+             |'.IIF' <Identifier>','<Expression>','<Identifier>'='<Expression>
+             |'.LIST' 'SRC' '(' <Expression List> ')'
+             |<PseudoIdentifierExpression> <Identifier>','<Expression>
+
+            
+
+             
+
+                         

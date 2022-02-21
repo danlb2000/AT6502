@@ -1,0 +1,1 @@
+copy "C:\Users\Dan\Documents\Visual Studio 2019\Projects\AT6502\AT6502\bin\Debug\at6502.*" "D:\Data\CCTest"

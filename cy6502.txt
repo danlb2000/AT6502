@@ -1,0 +1,4095 @@
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                 BSO/Assembler
+                                Macro Assembler
+                                    CY6502-V
+
+                                    VAX/VMS
+
+
+
+                                    for the
+
+                    MOS Technology, Rockwell International,
+                               Synertek, and NCR
+                              6502 Microprocessors
+                          (and all compatible devices)
+
+
+
+
+
+
+
+
+
+
+
+                          Boston Systems Office, Inc.
+                             128 Technology Center
+                             Waltham MA 02254-9164
+                               Tel: 617-894-7800
+                               TWX: 710-324-0760
+
+
+
+
+                                                         28-AUG-1985
+
+
+
+
+
+
+
+
+
+                            NOTICE OF COPYRIGHT
+
+     (C) Copyright 1978, 1979, 1980,  1981,  1982,  1983,  1984,  1985
+     Boston  Systems  Office,  Inc.  All rights reserved.  In claiming
+     any copyright protection which may be  applicable,  BSO  reserves
+     and  does  not  waive  any  other  rights  that  it  may have (by
+     agreement, statutory or common law, or otherwise) with respect to
+     this material.  See Notice of Proprietary Rights.
+
+
+                       NOTICE OF PROPRIETARY RIGHTS
+
+     This manual and the material on which  it  is  recorded  are  the
+     property  of  The  Boston  Systems Office, Inc.  (BSO).  Its use,
+     reproduction, transfer and/or disclosure to others,  in  this  or
+     any  other  form,  is prohibited except as permitted by a written
+     License Agreement with BSO.
+
+
+                                DISCLAIMERS
+
+     This manual is intended as a thorough  product  description.   It
+     is, to the best of our knowledge, complete and accurate.
+
+     The  Boston  Systems  Office  does  not,  however,  warrant  this
+     document's  accuracy, nor shall it be held responsible for errors
+     of content or omission.  The Boston Systems Office  reserves  the
+     right to update this document without prior notification.
+
+
+                                TRADEMARKS
+
+     BSO,  BSO/Assembler,  BSO/Debug,  BSO/Pascal,   BSO/C,   BSO/PLM,
+     BSO/Planner,  BSO/XL,  BSO/Com-1, BSO/Com-2, BSO/Mlink, BSO/Mlib,
+     BSO/Tekld, BSO/Objcnv, BSO/Fmtcnv are trademarks  of  The  Boston
+     Systems Office, Inc.
+
+     DEC, IAS, LSI-11, Micro-11, PDP, P/OS, Professional,  RSTS,  RSX,
+     RT-11,  VAX,  VMS, ULTRIX and ULTRIX-32 are registered trademarks
+     of Digital Equipment Corporation.  UNIX is a registered trademark
+     of Bell Laboratories.
+
+
+
+
+
+
+                            GENERAL INFORMATION
+
+
+     Boston Systems Office (BSO) offers a complete family of  software
+     development  systems and tools on DEC's VAX and PDP-11 computers.
+     These tools include universal microprocessor development systems,
+     C,  Pascal  and  PL/M  compilers, assemblers, symbolic debuggers,
+     linkage editors, cross reference programs, program librarians,  a
+     Digital   Command   Language   (DCL)   accelerator,  object  code
+     conversion programs, emulator and PROM  programmer  communication
+     programs and a project management system.
+
+     The advantages of BSO software development  systems  compared  to
+     more limited development systems include:
+
+           -  Multi-user/multi-tasking capability
+
+           -  Well-established  and  proven  operating   systems   and
+              hardware
+
+           -  Multi-microprocessor  development  capability   on   one
+              system
+
+           -  Much faster response
+
+           -  Lower station cost in multi-user configurations
+
+           -  More powerful editors
+
+           -  Higher speed peripherals
+
+           -  Proven file backup utilities
+
+
+
+
+               BSO Compilers: BSO/Pascal, BSO/C and BSO/PLM
+
+
+     BSO  offers  the  microprocessor  software  developer  the   most
+     advanced   high-level  programming  languages  available.   These
+     languages are  designed  expressly  for  microprocessor  software
+     design  and  development.   These  compilers  support  the  Intel
+     8086/88/186/188/87 family, the Motorola 68000 and 6809, the Zilog
+     Z80, and others.
+
+
+
+
+
+
+
+
+                                    iii
+
+
+
+
+
+
+                               BSO/Assembler
+
+
+     BSO offers a full line of highly  sophisticated  and  well-tested
+     microprocessor  assemblers.  BSO assemblers have instruction sets
+     that are  100%  compatible  with  the  manufacturer's  executable
+     instruction  set and syntax.  This permits the developer familiar
+     with  the  manufacturer-supplied  assembler   to   begin   system
+     development  with a BSO assembler immediately.  In addition, this
+     compatibility  allows  easy  transportation  of  source  programs
+     developed   on   other  development  systems  to  a  BSO  system.
+     Assemblers are available for  over  40  different  microprocessor
+     families  including  the  most  current  microprocessors  such as
+     Intel's 8086/87/186/286 family, Motorola's 68000 family,  Zilog's
+     Z8000 family, and National's 32000 family.
+
+
+
+                                 BSO/Debug
+
+
+     BSO high-level symbolic debuggers are designed to allow a  system
+     designer  to  fully  debug  software  in  a  protected  real-time
+     environment.   Without  introducing  emulation-associated  "wait"
+     states,  BSO  debuggers  execute all instructions in a controlled
+     method that records the true number of of clock  cycles  used  by
+     each  instruction.   The entire microprocessor instruction set is
+     easily  monitored   and   traced.    Full   symbolic   capability
+     facilitates and speeds up the designer's task.
+
+
+
+              Format Conversion and Object File Transmission
+
+
+     The absolute load module produced by the BSO linkage  editor  can
+     be  re-formatted  through the BSO/Objcnv program to generate many
+     different output formats.  These include  not  only  all  of  the
+     microprocessor manufacturer's formats, but also many emulator and
+     PROM  programmer  input  formats   such   as   Intel,   Motorola,
+     Hewlett-Packard,   Tektronix,  Applied  Microsystems,  Millenium,
+     Kontron, Sophia, and Emulogic.  The  reformatted  object  program
+     can  then  be  down-line loaded into almost any device, including
+     many development systems, in-circuit emulators, PROM programmers,
+     or microprocessor system prototypes.
+
+
+
+
+
+
+
+
+                                    iv
+
+
+
+
+
+
+                                  BSO/Com
+
+
+     The  BSO/Com  line  of  communication  products   supports   file
+     transfers  between  the VAX and PDP-11 to such systems as Intel's
+     Model 800, Series II  and  Series  III  systems,  and  Motorola's
+     EXORciser.   All  BSO-generated  object programs can be down-line
+     loaded to any device accepting RS-232 serial input.  In addition,
+     source,  object, or data files can also be transmitted up-line to
+     the BSO development system.  A unique  benefit  of  some  of  the
+     BSO/Com  products  is their provision for task queuing.  The user
+     wishing to transfer files simply submits  the  request  and  then
+     continues  with  other  work.  The transfer occurs automatically,
+     and the user is then notified.
+
+
+
+                                  BSO/XL
+
+
+     The  Digital  Command  Language  (DCL)  has  become  increasingly
+     popular  for  many applications that run under VAX/VMS.  With its
+     increasing use, larger DCL programs are being written.  Since DCL
+     is  an  interpreted  language,  large programs are processed more
+     slowly than small ones.  BSO/XL can reduce the  overhead  of  DCL
+     processing   and   thus   improve   command  file  throughput  by
+     reformatting the DCL files  into  a  format  much  more  speedily
+     processed by the VAX/VMS system.  The larger and more complicated
+     the DCL procedure is, the more BSO/XL can help.  BSO/XL can speed
+     up the processing of DCL procedures by as much as 50%.
+
+
+
+                                BSO/Planner
+
+
+     BSO/Planner is a software project management system  that  allows
+     software  project designers and managers to schedule and plot all
+     of the tasks and  resources  necessary  to  complete  a  software
+     project.    As  a  planning  tool,  BSO/Planner  helps  you  more
+     accurately  forecast  project  completion  and  permits   optimum
+     resource  utilization.   As  a  tracking tool, it specifies which
+     projects or portions of projects are ahead  or  behind  schedule.
+     And  as  an  estimation  tool,  by  maintaining histories of past
+     projects, BSO/Planner gathers information that  allows  for  more
+     accurate predictions in the future.
+
+
+
+
+
+
+
+                                     v
+
+
+
+
+
+
+                               Sales Offices
+
+
+     US and Canadian customers can call the Sales  Department  of  the
+     Boston  Systems  Office  at  617-894-7800 or TWX:710-324-0760 for
+     further information  on  BSO  products.   Boston  Systems  Office
+     products  are sold throughout the world through a network of over
+     30 representatives.  Represented  countries  include  the  United
+     Kingdom,  Belgium, the Netherlands, Sweden, Norway, Finland, West
+     Germany, Switzerland, France, Italy, Israel, South Africa,  South
+     Korea,  India,  People's Republic of China, Japan, and Australia.
+     All overseas customers are welcome to contact BSO or  to  contact
+     specific  BSO  representatives  directly.   BSO's  address is 128
+     Technology Center, Waltham MA 02254-9164 U.S.A.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    vi
+
+
+
+
+
+
+                             TABLE OF CONTENTS
+
+          Section                  Contents
+
+          1.0       OPERATING INSTRUCTIONS
+          1.1          Using the Listing and Object files
+          1.2          Switches
+          1.3          Listing Options
+          1.3.1           Short (Narrow) Forms (/S)
+          1.3.2           Omit Symbol Table (/T)
+          1.3.3           Cross-Reference Mode (/X, /V)
+          1.4          Object file options
+          1.4.1           Relocatable and Absolute Assembly Modes 
+                          (/R,/A)
+          1.5          Macro Switch (/M:nn)
+          1.6          Sample Commands
+          1.7          Using This Manual
+
+          2.0       SOURCE PROGRAM PREPARATION
+          2.1          Program Entry
+          2.2          Program Format
+          2.2.1           Label Field
+          2.2.1.1            Local Labels
+          2.2.2           Instruction Field
+          2.2.3           Operand Field
+          2.2.4           Comment Field
+          2.3          Expressions
+          2.3.1           Symbols
+          2.3.2           Numeric Constants
+          2.3.3           ASCII Constants
+          2.3.4           Expression Operators
+          2.4          BSO Special Characters
+
+          3.0       INSTRUCTION SET
+
+          4.0       ASSEMBLER DIRECTIVES (PSEUDO-OPS)
+          4.1          Conditional Assembly
+          4.2          The BSO Macro Facility
+          4.2.1           Nesting Of Macros
+          4.2.2           Using .IFB and .IFIDN Conditionals
+          4.2.3           Comments on Macro Lines
+          4.3          Repeat Directives
+          4.3.1           .IRPC
+          4.3.2           .IRP
+          4.3.3           .REPT
+          4.3.4           Arguments within Brackets
+
+
+
+
+
+
+
+                                    vii
+
+
+
+
+
+
+          4.4          Listing Control
+          4.4.1           .BLIST,.MLIST,.NMLIST
+          4.4.2           .CLIST,.NCLIST
+          4.4.3           .FORMLN
+          4.4.4           .GEN,.NOGEN
+          4.4.5           .LIST,.NLIST   
+          4.4.6           .PAGE
+          4.4.7           .SPACE
+          4.4.8           .SUBTTL
+          4.4.9           .NAM
+          4.5          Miscellaneous Directives
+          4.5.1           Input Control: .INCLUDE 
+          4.5.2           Default Radix Control: .RADIX 
+          4.5.3           Printout during Assembly: .MESSG
+          4.5.4           Local Symbol Block Control: .LOCAL 
+          4.6          Relocation Control
+          4.6.1           Code Organization
+          4.6.1.1            .SECT
+          4.6.1.2            .ASECT, .RSECT, .ZSECT
+          4.6.2           =, .AORG, .RORG, .ZORG
+          4.6.3           .INTERN, .EXTERN
+          4.6.4           Instruction to Linker: .LINK
+
+          5.0       FILE FORMATS
+          5.1          Listing File Format
+          5.1.1           Heading
+          5.1.2           Fields in the Listing
+          5.1.3           Symbol Table
+          5.1.4           Cross Reference Symbol Table
+          5.2          Object File Format
+
+          6.0       ERROR HANDLING
+          6.1          Program Errors
+          6.2          System Errors
+
+          7.0       SUMMARY OF DIFFERENCES
+
+          8.0       DIFFERENCES BETWEEN BSO CROSS ASSEMBLERS WITH 
+                    EXTENDED SYMBOL TABLE CAPABILITIES AND WITHOUT
+                    EXTENDED SYMBOL TABLE CAPABILITIES
+
+          9.0       INSTALLING THE ASSEMBLER AND SYMBOL TABLE
+                    MANAGER
+
+
+          APPENDICES:
+
+          I.        HOW TO REPORT DOCUMENTATION OR SOFTWARE PROBLEMS
+
+          II.       PROBLEM AND SUGGESTION REPORT
+
+
+
+                                   viii
+
+
+
+
+
+
+     1.0 OPERATING INSTRUCTIONS
+
+     Before running the cross assembler, be  sure  that  the  required
+     assignment  statement  for  the  symbol  table has been made (see
+     Section 9.0).
+
+     To run the 6502 cross assembler, at the monitor  (system)  level,
+     type:
+
+          $ RUN CY6502
+
+     The assembler will respond with the following:
+
+          6502 relocating cross assembler version xx.xx.xx
+          Copyright, The Boston Systems Office, Inc. 1978
+          (617) 894-7800   TWX: 710-324-0760
+          Type /H for help
+          C65>
+
+     By typing "C65>", the assembler is indicating  its  readiness  to
+     accept  a  command  and perform an assembly.  To this prompt, you
+     should either type "/H" to obtain helpful information  about  the
+     assembler or type a command of the form
+
+          C65>PROG.ROB,PROG.LST=PROG1.SRC,PROG2.SRC/N/S
+
+     The filenames shown above (PROG.ROB, PROG.LST,  PROG1.SRC,  etc.)
+     are  used  for  example  purposes  only,  and any acceptable file
+     specifications may be used.  Note  that  any  command  line  that
+     exceeds 79 characters will produce an error message.
+
+     PROG.ROB and PROG.LST are the names of the object and list  files
+     the assembler will create, respectively.  If either of these file
+     specifications is  omitted,  the  associated  file  will  not  be
+     generated.
+
+     If a list file is desired without an  object  file,  the  command
+     string  should  start  with  a  comma,  followed by the list file
+     specification, i.e., if only the  object  file  is  omitted,  its
+     trailing comma must still be included.
+
+     If only an object file is desired, without a list  file,  neither
+     the comma nor the list file specification need appear on the left
+     side of the "=" sign in  the  command  string  (see  examples  in
+     Section 1.6).
+
+     The source program(s) to be assembled is (are) specified  on  the
+     right  side of the "=" sign.  If more than one file is specified,
+     the named files are assembled  together,  as  if  they  were  one
+     source  file.   The  individual  source files are combined in the
+     same order in which  they  appear  in  the  command  string  (see
+
+
+                                     1
+
+
+
+
+
+
+     examples in Section 1.6).  Up to 5 source files may be specified,
+     separated only by commas.  At least one  source  file  is  always
+     required.
+
+     The last source file is optionally followed by "switches" for the
+     command string.  These take the form of a slash "/" followed by a
+     single letter (shown in the above example by "/N" and "/S"),  and
+     as  many  of  these may be specified as desired (including none).
+     Each switch slightly modifies the  operation  of  the  assembler.
+     The available switches are detailed in Section 1.2.
+
+     If filetypes are omitted from  the  file  specifications  in  the
+     command string, the following assumed default filetypes apply:
+
+          Object file     .ROB (.ABS if in absolute (/A) mode)
+          List file       .LST 
+          Source files    .SRC
+
+     The 6502 cross assembler also accepts input from  command  files.
+     An  "@" sign preceding a filename indicates to the assembler that
+     the command(s) in the named file are to be executed  as  if  they
+     were  typed  in at the terminal.  If a filetype is not specified,
+     it is assumed to be ".CMD".
+
+     For example, if the file "TEST.CMD" contained a  command  string,
+     the programmer could simply type:
+
+          @TEST
+
+     at the assembler prompt to cause the commands in "TEST.CMD" to be
+     executed.
+
+     Since the  operating  system  recognizes  the  filename  "TT"  to
+     represent   terminal   I/O,  the  command  "@  TT"  will  not  be
+     interpreted to mean "perform commands in the file 'TT.CMD'";  the
+     assembler will be expecting input from the terminal, instead.  We
+     recommend that you do not name any command  files  "TT.CMD";   if
+     you  you must, however, include the file extension in the command
+     file call to avoid the ambiguity.
+
+     The assembler will re-prompt after each assembly with "C65>".  To
+     exit  back  to  the  monitor  from the assembler, type Control-Z.
+     Exit from the assembler will relay status concerning the assembly
+     to the status block.  The status codes and their meanings are:
+
+               Code      Meaning
+
+               4         Fatal error
+               2         Command error
+               0         Warning
+               1         Successful execution
+
+
+                                     2
+
+
+
+
+
+
+     For more  information  on  the  status  block,  please  see  your
+     operating system documentation.
+
+
+
+     1.1 USING THE LISTING AND OBJECT FILES
+
+     The listing files created are in ASCII formats and may be printed
+     or  punched  by  using  standard  operating system commands.  Any
+     normal system commands may also be used to move these files  from
+     device  to device.  Consult your computer system user's guide for
+     more details.
+
+     Relocatable object files are in BSO format and must be linked  by
+     MLINK,  the  Cross  Linkage  Editor.   Absolute object files (the
+     output of either the assembler in  absolute  mode  or  the  Cross
+     Linkage  Editor)  are  also in BSO format and must be run through
+     OBJCNV, the Object Conversion Utility, when they are  desired  in
+     MOS  Technology format.  Although the BSO format object files are
+     used primarily as input to the Linker, Debugger, or OBJCNV,  they
+     are in ASCII format, so may be printed or punched if desired.
+
+
+
+     1.2 SWITCHES
+
+     Following is  a  listing  of  switches  available  on  the  cross
+     assembler.
+
+     The user has the option of setting the default operation  of  the
+     cross assembler at the time that the assembler is built to either
+     "relocatable assembly" or "absolute assembly".  The "/A" and "/R"
+     switches enable the user to specify a mode other than the default
+     mode at execution time.
+
+     Another default which may be optionally established by  the  user
+     at   assembler   build   time  is  whether  to  include  or  omit
+     cross-reference information in the list file.  The "/X" and  "/V"
+     switches enable the user to specify a mode other than the default
+     mode at execution time.
+
+           /A     Absolute assembly.  Run the  assembler  in  absolute
+                  mode (see Section 1.4.2).
+           /H     "Help".  Print helpful  information  (must  be  sole
+                  item on command line).
+           /M:nn  Macro switch.  Change the allowable arguments  on  a
+                  macro  from the default to any number no larger than
+                  50.
+           /N     Do not print assembly errors on user's terminal.
+           /R     Relocatable  assembly.    Run   the   assembler   in
+                  relocatable mode (see Section 1.4.2).
+
+
+                                     3
+
+
+
+
+
+
+           /S     Short listing lines for narrow  forms  (see  Section
+                  1.3.1).
+           /T     No symbol table in listing (see Section 1.3.2).
+           /V     No cross reference (see Section 1.3.3).
+           /X     Cross reference mode (see Section 1.3.3).
+
+
+
+     1.3 LISTING OPTIONS
+
+
+     1.3.1 SHORT (NARROW) FORMS (/S)
+
+     The listing produced by this assembler is designed for 132-column
+     (wide  form)  printers.   If  the  listing  is  to  be printed on
+     narrower paper, /S causes a short-form  listing  to  be  produced
+     instead.   /S  should not be specified unless it is required that
+     listings print on narrow paper, since some information is omitted
+     from  the  listing  in  /S  mode  (see  Section 5.1, Listing File
+     Format, for details).  Source lines exceeding 80 characters  will
+     not be truncated and may not print properly.
+
+
+     1.3.2 OMIT SYMBOL TABLE (/T)
+
+     The listing normally contains a table of user symbols  and  their
+     values.   This  table  can  be  omitted  by  specifying /T in the
+     command line.
+
+
+     1.3.3 CROSS-REFERENCE MODE (/X, /V)
+
+     The assembler default may  be  set  to  either  include  or  omit
+     cross-reference  information  in  the  list  file produced by the
+     assembler.  This default may  be  overridden  by  specifying  the
+     appropriate switch in the command line.
+
+     By adding the /X switch to the end of  the  command  string,  the
+     user  instructs the assembler to operate in cross-reference mode.
+     The /V  switch  causes  the  assembler  to  omit  cross-reference
+     information.
+
+
+
+
+
+
+
+
+
+
+
+
+                                     4
+
+
+
+
+
+
+     1.4 OBJECT FILE OPTIONS
+
+
+     1.4.1 RELOCATABLE AND ABSOLUTE ASSEMBLY MODES (/R,/A)
+
+     The default mode of the assembler may be  either  relocatable  or
+     absolute, depending upon how it was configured.  This mode may be
+     changed by including the appropriate switch in the command line.
+
+     When the /R switch  is  specified,  the  assembler  will  run  in
+     relocatable  mode.   Relocation  is  described  in more detail in
+     Section 4.6 of this manual.  When /R  is  specified,  relocatable
+     object files in BSO format are produced, with a default extension
+     of .ROB instead of .ABS.  The files may then be linked  by  MLINK
+     to  produce  an absolute object file (with a default extension of
+     .ABS).
+
+     When the /A switch  is  specified,  the  assembler  will  run  in
+     absolute  mode,  producing  an absolute object file in BSO format
+     (whose default extension is .ABS).
+
+
+
+
+     1.5 MACRO SWITCH (/M:nn)
+
+     When the user specifies the /M:nn switch, the number of allowable
+     arguments on a macro changes from the default (10) to "nn", where
+     "nn" cannot be larger than 50.  (BSO supplies this assembler with
+     a default of 10, but the default may be changed when the software
+     is installed on your system.  Check with your system manager  for
+     the  default  value used at your site.  If you wish to change the
+     default value, refer to the loading instructions and accompanying
+     files provided by BSO.)
+
+
+                                   NOTE
+
+                    The higher the number of  arguments
+                    allowed  by  the  /M:nn switch, the
+                    greater the memory storage required
+                    per  macro.   Increasing the number
+                    of allowable arguments  beyond  the
+                    necessary  amount will waste memory
+                    usable by other assembler features.
+
+
+
+
+
+
+
+
+                                     5
+
+
+
+
+
+
+     1.6 SAMPLE COMMANDS
+
+     The following examples are provided as  an  illustration  of  the
+     sort  of  commands  normally  given to the assembler.  Commentary
+     text is provided with each one.  Only  the  command  strings  are
+     shown   below;    they  are  always  typed  in  response  to  the
+     assembler's   prompt,   "C65>".    The   assumed   defaults   are
+     "Relocatable" and "Cross reference".
+
+          A.ROB,A.LST=A.SRC
+               Assemble source  file  A.SRC,  generating  object  file
+               A.ROB  and  list file A.LST.  The object and list files
+               are in standard format.  Assembly errors appear on  the
+               user's  terminal  and in the list file.  Assembly is in
+               relocatable mode.
+
+          A,A=A
+               Same effect  as  above  command  string,  default  file
+               extensions used.
+
+          A,A=A,B,C
+               Assemble source files A.SRC, B.SRC, and C.SRC as though
+               they  were one source file.  Generate object file A.ROB
+               and list file A.LST.  Relocatable mode.
+
+          A=A
+               Assemble source  file  A.SRC,  generating  object  file
+               A.ROB.   No  list file is generated.  Lines with errors
+               are printed on the user's terminal.  Relocatable mode.
+
+          A=A/A
+               Same as above,  but  object  file  defaults  to  A.ABS.
+               Absolute mode.
+
+          ,A=A
+               Assemble source file A.SRC, generating list file A.LST.
+               No  object  file.   Assembly  errors appear both in the
+               list file and  on  the  user's  terminal.   Relocatable
+               mode.
+
+          ,A=A/A
+               Same as above;  absolute mode.
+
+          FOO,BAR=PROG/X/N/T
+               Assemble source  program  PROG.SRC,  generating  object
+               file   FOO.ROB  and  list  file  with  cross  reference
+               BAR.LST.  Lines with errors appear  only  in  the  list
+               file;   they are not typed on the user's terminal.  The
+               symbol table is omitted from the list file.
+
+
+
+
+                                     6
+
+
+
+
+
+
+     1.7 USING THIS MANUAL
+
+     This manual is intended to be used in conjunction  with  the  MOS
+     Technology assembler manual for the 6502.
+
+     Also, the  Rockwell  R6500  Programming  Manual,  #29650N30,  the
+     Synertek  Manual,  and the NCR Manual may be helpful in that they
+     describe the use of the instruction set for compatible devices.
+
+     Since BSO fully supports the MOS Technology 6502 instruction  set
+     (any  exceptions  to  this  rule  are  listed  in  the Summary of
+     Differences, Section 7.0), the reader is referred to the the  MOS
+     Technology   MCS6500  Microcomputer  Family  Programming  Manual,
+     #6500-50  for  details  regarding  the  use  of  MOS   Technology
+     instructions.   The  instruction  set is listed in Section 3.0 of
+     this manual.
+
+     BSO's assembler supports certain MOS Technology directives.   All
+     MOS  Technology  directives  which  produce  code  are  supported
+     (again, any possible exceptions will be listed in the Summary  of
+     Differences,  Section  7.0).  MOS Technology directives which BSO
+     fully supports are not described in detail in  this  manual,  but
+     are  listed  in  Section  4.0.   The user should use the Rockwell
+     R6500  Assembler  User's  Manual,   #29650N34   for   information
+     regarding the use of these directives.
+
+     To   provide   advanced   features   to   all   users   of    BSO
+     cross-assemblers,  many  BSO  directives  are  standard  from one
+     cross-assembler to  another.   These  directives  are  listed  in
+     Section  4.0  and  are  fully  described  in Chapter Four of this
+     manual.  The reader  should  refer  solely  to  this  manual  for
+     instructions  regarding  these  directives, and should not assume
+     that they operate in the same manner as  similar  MOS  Technology
+     directives.
+
+     The program format expected by the BSO assembler is described  in
+     Chapter  Two.  This program format is as close as possible to the
+     format  expected  by  the  MOS  Technology  assembler.   However,
+     certain  features  and  requirements  are  standard  in  all  BSO
+     assemblers  and  may  differ   slightly   from   MOS   Technology
+     specifications.  These are fully described in Chapter Two.  Where
+     a program entry convention  is  not  described,  the  reader  may
+     assume that it follows standard MOS Technology rules.
+
+
+
+
+
+
+
+
+
+
+                                     7
+
+
+
+
+
+
+     2.0 SOURCE PROGRAM PREPARATION
+
+
+
+     2.1 PROGRAM ENTRY
+
+     In general, source programs for this assembler are placed on  the
+     host  computer  disk either by use of a text editor program or by
+     copying an existing source program from paper tape, punch  cards,
+     magnetic  tape,  etc.   Once  a  program  resides on disk, a text
+     editor program can be used  to  alter  or  correct  the  file  in
+     preparation  for  assembly.  Consult the operating system manuals
+     supplied with your computer for further  information  on  copying
+     and editing files on your system.
+
+
+
+
+     2.2 PROGRAM FORMAT
+
+     Each source program for the  6502  consists  of  lines  of  ASCII
+     characters.   Each  line  must  be no longer than 132 characters;
+     longer lines will result in an error.
+
+     Lines beginning  with  a  semicolon  (";")  will  be  treated  as
+     comments.   Blank  lines  will  be  ignored.   Each  source  line
+     (statement) consists of four parts or "fields":  The label field,
+     the  instruction  field, the operand field and the comment field.
+     Fields must be separated from each other by at least one space or
+     tab.  They are described below.
+
+
+
+     2.2.1 LABEL FIELD
+
+     The first field of a source program line  is  called  the  "label
+     field".   If  not  blank, the label field contains a symbol which
+     may be (1) a label, identifying a point in the program, or (2)  a
+     symbol used with MACRO or = .  Any symbol used in the label field
+     must begin in the first column and must be followed by  at  least
+     one  space  or tab.  (The symbol being defined by "=" need not be
+     in the first column and may be preceded by a label  which  begins
+     in the first column.)
+
+     Symbols (labels) must be  composed  of  from  one  to  thirty-one
+     alphanumeric   characters,   where  "alphanumeric"  includes  the
+     letters A though Z, the digits  0  through  9,  and  the  special
+     characters  "." (period), "_" (underscore) and "$" (dollar sign).
+     Lowercase letters are treated as  identical  to  their  uppercase
+     equivalents.   The  first character of a symbol must be a letter,
+     period or underscore.
+
+
+                                     8
+
+
+
+
+
+
+     A special symbol  format  exists  for  local  labels,  which  are
+     discussed in Section 2.2.1.1.  Symbols used with .MACRO and = may
+     not use this special format.
+
+     Program labels are illegal  on  the  same  line  as  one  of  the
+     following  directives:   .RADIX,  .LOCAL,  .MESSG,  .ENDM, .ENDR,
+     .END, .INCLUDE, .LINK, .INTERN,  .EXTERN,  and  all  conditional,
+     .SECT,  and  listing  directives.  A symbol in the label field is
+     mandatory in statements with .MACRO or =.
+
+     A line containing only a program label will generate no code, but
+     will  define the label to be equal to the next available address.
+     Program labels may be either permanent (may  be  referenced  from
+     any  point  in the program) or local (may be referenced only from
+     within their local symbol block).
+
+
+                                   NOTE
+
+                    If  your  program  is  to  be  down
+                    loaded  to a Tektronix emulator, be
+                    aware that  labels  beginning  with
+                    periods will not be accepted by the
+                    Tektronix hardware.
+
+
+
+
+     2.2.1.1 LOCAL LABELS
+
+     This cross assembler recognizes local or temporary  labels  which
+     have  a  special format and may only be referenced from a limited
+     area.  Local labels have the form "nnn$" where "nnn" is a decimal
+     number between 1 and 255 inclusive.
+
+     They may only be referenced from within their local symbol block.
+     A local symbol block is defined as the code beginning with a line
+     containing a permanent label and terminating on the  line  before
+     the  next permanent label.  Thus a permanent label may be used to
+     identify the beginning of a  significant  section  of  code,  and
+     temporary  labels  may  be  used  within this section to identify
+     locations to which branching  may  occur.   This  simplifies  the
+     choice  of  a  label  name and makes the beginning of significant
+     sections more evident.
+
+     Note:  Symbols used to  mark  .MACRO  or  =  directives  are  not
+     considered  to be permanent labels.  Therefore, such symbols will
+     not delimit local symbol blocks.
+
+     Labels of the same name may be used  in  different  local  symbol
+     blocks without being considered multiply defined.  For example:
+
+
+                                     9
+
+
+
+
+
+
+             GETNUM  XXXXX   Beginning of local symbol block
+             1$      XXXXX   
+                     XXXXX
+                     XXXXX   End of local symbol block
+             ADDNUM  XXXXX   Beginning of new local symbol block
+                     XXXXX
+             1$      XXXXX   This local label is not multiply
+                             defined, since it is in a different
+                             local symbol block from the 
+                             previous label named "1$"
+
+     The BSO directive ".LOCAL" allows the programmer to start  a  new
+     local  symbol block without using a permanent label.  See Section
+     4.5.
+
+     Note:  Local symbols are here called "local" as they are local to
+     their  symbol block.  In the BSO Linker, several commands use the
+     keyword   "LOCAL"   which   refers   to   symbols    which    are
+     module-specific,   or   local  to  one  module  (i.e.   permanent
+     symbols).  The context should make clear  which  type  of  "local
+     symbol" is being described.
+
+
+
+     2.2.2 INSTRUCTION FIELD
+
+     The  instruction  field  must  contain  either   an   instruction
+     mnemonic,  an  assembler  directive (pseudo-op), or the name of a
+     user-defined macro (i.e., a macro call).  This field is  followed
+     by at least one space or tab and must not begin in column one.
+
+
+
+     2.2.3 OPERAND FIELD
+
+     The operand field, if  required,  may  consist  of  one  or  more
+     operands  separated  by  commas.   An  operand  may  be  an ASCII
+     constant, numeric expression, character string, symbol  name,  or
+     the name of a 6502 register.  The expected contents of this field
+     will  depend  on  the  instruction,  directive,  or  macro   name
+     appearing in the instruction field.
+
+
+
+     2.2.4 COMMENT FIELD
+
+     This field is optional;  it will be  ignored  by  the  assembler.
+     All  comments  will  appear  in  the  listing,  but  will  not be
+     assembled.  The comment field must be preceded by  at  least  one
+     space  or  tab.   A semicolon (";") in the first column indicates
+     that the whole line is a comment.
+
+
+                                    10
+
+
+
+
+
+
+     2.3 EXPRESSIONS
+
+     Expressions can be made up of user symbols and numeric and  ASCII
+     constants.   These  elements  may  be  combined  by  the  various
+     operators described in Section 2.3.4.
+
+     Arithmetic  expressions  are  evaluated   using   signed   16-bit
+     arithmetic  (values  are assumed to be a sign bit plus 15 numeric
+     bits).   Therefore  a   value   in   an   expression   (including
+     intermediate  values)  must  be  in  the range -32,768 to +32,767
+     (decimal).  Numbers between +32,768 and +65,535  are  legal,  but
+     will  be  interpreted  as negative.  Byte values are truncated to
+     one byte after the evaluation is completed.
+
+
+
+     2.3.1 SYMBOLS
+
+     Any alphanumeric symbol which has been used as a statement  label
+     or  equated to a value may be used in an expression.  Symbols may
+     be any length, but  only  the  first  thirty-one  characters  are
+     significant.   The  special  symbol "*" (asterisk) may be used to
+     denote the location of the first byte of the current instruction.
+
+
+
+     2.3.2 NUMERIC CONSTANTS
+
+     Numeric constants may be specified as binary, octal, decimal,  or
+     hexadecimal constants by preceding or following the number with a
+     character indicating the radix  used.   Letters  and  the  period
+     follow  the  number;  special characters precede the number.  The
+     characters used are shown below:
+
+              % - BINARY          %0101 
+              @ - OCTAL           @15
+              $ - HEXADECIMAL     $F80
+
+     The user can also change the default  radix  of  his  numbers  by
+     using  the  ".RADIX"  directive  (see  Section 4.5.2).  Note that
+     constants without a prefix must always start with a numeric digit
+     (0  if necessary) in order to distinguish them from user symbols.
+     Numbers without any indication of  radix  (no  prefix  or  suffix
+     characters)  will  be  considered  to  be  in  the default radix,
+     initially decimal.
+
+
+
+     2.3.3 ASCII CONSTANTS
+
+     An ASCII  constant  is  represented  by  one  or  two  characters
+
+
+                                    11
+
+
+
+
+
+
+     enclosed   in  apostrophes  (').   This  construct  produces  the
+     seven-bit  ASCII  value  of  the  character(s)  specified.    Any
+     character  is  permitted.   A  string consisting of one character
+     used as the operand expression for the immediate addressing  mode
+     takes  only the left apostrophe.  An ASCII string may be enclosed
+     in either single or double quotes.  A  delimiter  (apostrophe  or
+     quotation mark) may be inserted in a string by doubling it.
+
+
+
+     2.3.4 EXPRESSION OPERATORS
+
+     The operators available for constructing expressions include both
+     the unary and binary operators listed below:
+
+
+        UNARY:  +       Identity
+                -       Negation
+                >       High byte
+                <       Low byte
+                !N      Logical one's complement
+
+        BINARY: +       Addition
+                -       Subtraction
+                *       Multiplication
+                /       Division.  Any remainder is discarded.
+                !.      Logical AND
+                !+      Logical OR
+                !X      Logical Exclusive OR
+
+     Expressions will be evaluated according to the following operator
+     precedence, and from left to right when of equal precedence:
+
+
+                1)  Unary +, unary -, !N, <, >
+                2)  *, /, !., !+, !X
+                3)  Binary +, binary -
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    12
+
+
+
+
+
+
+     2.4 BSO SPECIAL CHARACTERS
+
+     The following characters are of special significance to  the  BSO
+     assembler.
+
+
+     ~ (tilde)  -  Tilde  specifies  that  the  character  immediately
+          following it is to be read literally.  Tilde is helpful when
+          used in combination with special characters (for examples of
+          use, see Section 4.3.4).
+
+     <,> (angle brackets) - Beyond any significance they may  have  as
+          expression  operators  (see  Section  2.3.4), angle brackets
+          used with nested macro calls and repeat  directives  delimit
+          characters  which,  on  an  initial  level,  are  to be read
+          literally and passed along to  another  iteration  or  macro
+          level.  See Sections 4.2 and 4.3 for details.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    13
+
+
+
+
+
+
+     3.0 INSTRUCTION SET
+
+     This assembler supports the standard set of instruction mnemonics
+     for  the 6502.  A detailed explanation of each may be obtained by
+     referring to the the MOS Technology MCS6500 Microcomputer  Family
+     Programming   Manual,   #6500-50.    The   supported  instruction
+     mnemonics are:
+
+
+                       ADC                CPY                PLP
+                       AND                DEC                ROL
+                       ASL                DEX                ROR
+                       BCC                DEY                RTI
+                       BCS                EOR                RTS
+                       BEQ                INC                SBC
+                       BIT                INX                SEC
+                       BMI                INY                SED
+                       BNE                JMP                SEI
+                       BPL                JSR                STA
+                       BRK                LDA                STX
+                       BVC                LDX                STY
+                       BVS                LDY                TAX
+                       CLC                LSR                TAY
+                       CLD                NOP                TSX
+                       CLI                ORA                TXA
+                       CLV                PHA                TXS
+                       CMP                PHP                TYA
+                       CPX                PLA
+
+               !!      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    14
+
+
+
+
+
+
+     4.0 ASSEMBLER DIRECTIVES (PSEUDO-OPS)
+
+     In addition to 6502 instructions,  this  assembler  recognizes  a
+     wide  range  of  directives or so-called "pseudo-ops".  These may
+     appear in the instruction field of any statement  instead  of  an
+     instruction mnemonic.
+
+     BSO directives are standard from one cross assembler to  another,
+     so  are  not  necessarily identical to manufacturer directives in
+     name or in function.   BSO  directives  are  summarized  in  this
+     section and described in the rest of this chapter.
+
+     For compatibility, the names of certain  manufacturer  directives
+     may be used in place of BSO directives.  See category 7 below for
+     a list of equivalent directives.
+
+
+          DIRECTIVE      CATEGORY
+
+           .AORG         6
+           .ASECT        6
+          *.BLIST        4
+          *.BYTE         5
+          *.CLIST        4
+          *.DBYTE        5
+           .ELSE         1
+           .END          5
+           .ENDM         2
+           .ENDR         3
+           .EXTERN       6
+           .FORMLN       4
+           .GEN          4
+           .IFB          1
+           .IFDEF        1
+           .IFE          1
+           .IFGE         1
+           .IFGT         1
+           .IFIDN        1
+           .IFLE         1
+           .IFLT         1
+           .IFN          1
+           .IFNB         1
+           .IFNDEF       1
+           .IFNIDN       1
+           .INCLUDE      Input control (see Sec. 4.5.1)
+           .INTERN       6
+           .IRP          3
+           .IRPC         3
+           .LINK         6
+          *.LIST         4
+           .LOCAL        Local symbol control (see Sec. 4.5.4)
+
+
+                                    15
+
+
+
+
+
+
+          *.MACRO        2
+           .MESSG        Printout during Assembly (Sec. 4.5.3)
+          *.MLIST        4
+           .NAM          4
+          *.NCLIST       4
+          *.NLIST        4
+          *.NMLIST       4
+          *.NOGEN        4
+          *.PAGE         4
+          *.RADIX        Default radix control (see Sec. 4.5.2)
+           .REPT         3
+           .RMB          Reserve multiple byte (same as "*=*+")
+           .RORG         6
+           .RSECT        6
+           .SECT         6
+           .SKIP         7
+           .SPACE        4
+           .SUBTTL       4              
+          *.WORD         5
+           .ZORG         6
+           .ZSECT        6
+           =             5
+
+          * These directives can be abbreviated to their first 3
+          letters.
+
+
+
+     Categories referenced above:
+
+     (1)  These  directives  deal  with  BSO's  conditional   assembly
+     facility, described in detail in Section 4.1 of this manual.
+
+     (2) These directives deal with BSO's macro facility, described at
+     length in Section 4.2 of this manual.
+
+     (3) These are repeat directives, described in Section 4.3 of this
+     manual.
+
+     (4) These are listing control directives,  described  in  Section
+     4.4 of this manual.
+
+     (5) These directives are  part  of  the  standard  6502  assembly
+     language  and  details  of their use can be found in the Rockwell
+     R6500 Assembler User's Manual, #29650N34.
+
+     (6) These are relocation directives.  Most of them are  available
+     only  when /A is not specified in the command string.  Relocation
+     is described in Section 4.6 of this manual.
+
+
+
+
+                                    16
+
+
+
+
+
+
+     (7) This MOS Technology directive name may be used  in  place  of
+     the  corresponding BSO directive but must conform to BSO rules of
+     operation.
+
+              MOS Technology Directive          BSO Directive
+
+                      .SKIP                           SPACE
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    17
+
+
+
+
+
+
+     4.1 CONDITIONAL ASSEMBLY
+
+     It is often necessary to make minor  changes  in  assembled  code
+     based  on  frequently-altered  parameters.   This assembler has a
+     powerful conditional assembly feature which permits such  changes
+     to be made with minimum effort.
+
+     Several conditional assembly directives are available.  Each  has
+     the  capability  of  turning the assembly of particular blocks of
+     code  on  or  off,  depending  on  a  specific  condition.    The
+     directives  are  summarized  below  with  notes  on  some  of the
+     directives following.
+
+
+          Pseudo-     Syntax                Condition tested
+            op
+
+          .IF       .IF logical expr      true 
+          .IF       .IF expr              expr <> 0
+          .IFE      .IFE expr             expr = 0
+          .IFN      .IFN expr             expr <> 0
+          .IFLT     .IFLT expr            expr < 0
+          .IFGT     .IFGT expr            expr > 0
+          .IFLE     .IFLE expr            expr <= 0
+          .IFGE     .IFGE expr            expr >= 0
+          .IFDEF    .IFDEF sym            sym is a defined symbol
+          .IFNDEF   .IFNDEF sym           sym is an undefined symbol
+          .IFB      .IFB <string>         string is blank
+          .IFNB     .IFNB <string>        string is not blank
+          .IFIDN    .IFIDN <str1>,<str2>  str1 and str2 are identical
+                                          character strings
+          .IFNIDN   .IFNIDN <str1>,<str2> str1 and str2 are not 
+                                          identical
+
+
+     .IF, .IFE, .IFN, .IFLT, .IFGT, .IFLE, .IFGE:
+
+          The expression used with these directives must be resolvable
+          to an absolute value and may not be a forward reference.
+
+     .IFDEF, .IFNDEF:
+
+          These directives do not accept local symbols and  treat  all
+          forward references as undefined.
+
+     .IFB, .IFNB, .IFIDN, .IFNIDN:
+
+          These directives are  useful  only  in  macro  bodies;   see
+          Section  4.2.2.   For  the  conventions  regarding arguments
+          within angle brackets, see Section 4.3.4.
+
+
+
+                                    18
+
+
+
+
+
+
+     The end of a block of conditional code is indicated by an  .ENDIF
+     directive.   When the assembler encounters one of the conditional
+     assembly  directives  listed  above,  it  tests  the   associated
+     condition  and  determines whether or not that condition is true.
+     If the condition is not true, all lines of  source  text  between
+     the  conditional  assembly  directive  and  its associated .ENDIF
+     directive are ignored by the assembler (see Section 4.4  for  how
+     to  control  how  such lines appear in the assembly listing).  If
+     the condition tests true, the code is assembled normally.
+
+     In addition, an optional ".ELSE"  directive  exists  which,  when
+     appearing  in  a  block of conditional code, reverses the current
+     true/false state of the conditional.
+
+     The following example illustrates the use of conditional assembly
+     in a program.
+
+                       .IFG      HSIZE-3       
+               ;
+               ;
+               ; Code here would be assembled if HSIZE is greater
+               ; than 3
+               ;
+                       .ELSE
+               ;
+               ;
+               ; Code here would be assembled if HSIZE is less than
+               ; or equal to 3
+               ;
+                       .ENDIF
+
+     Conditional assembly directives may be nested to any depth;  that
+     is,  a  conditional  block  of  code  may  itself  contain  other
+     conditional blocks, each starting  with  one  of  the  previously
+     listed   directives,   ending   with  an  .ENDIF  directive,  and
+     optionally containing one or more .ELSE directives.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    19
+
+
+
+
+
+
+     4.2 THE BSO MACRO FACILITY
+
+     Included in this assembler is a macro facility which permits  the
+     user  to  define  pseudo-instructions which are considered by the
+     assembler to be equivalent to any number of lines of source text.
+     Macros  are  very  flexible and powerful in that they provide the
+     ability to generate  many  lines  of  code  with  only  a  single
+     reference in the user program.
+
+     Macros operate strictly at the  source  level  and  work  on  the
+     easy-to-understand principles of simple text substitution.
+
+     The .MACRO and .ENDM directives are used  to  define  macros.   A
+     sample macro definition follows.
+
+             XYZZY   .MACRO  ARG1,ARG2
+                     ARG1    2,3,ARG2
+                     .BYTE   ARG2
+                     .ENDM
+
+     The first line contains the .MACRO directive, which indicates  to
+     the  assembler that the following lines define a macro.  The name
+     of the macro being defined in  this  case  is  XYZZY.   The  name
+     appears  in  the  label field of the macro definition line.  ARG1
+     and ARG2 are the macro's so-called "dummy  arguments".   A  dummy
+     argument is any series of characters which usually also appear at
+     least once in  the  body  of  the  macro.   Dummy  arguments  for
+     arguments  which  will  contain  commas must be enclosed in angle
+     brackets (see Section 4.3.4).  By default a macro can contain  up
+     to ten arguments.  By specifying the /M:nn switch, a user may set
+     the default value up to 50  arguments  (see  Section  1.5).   The
+     assembler  will  then accept as many arguments as will fit on one
+     line, with a maximum of 50.  (The  source  input  line  length  =
+     132.) The body of the macro definition is terminated by the .ENDM
+     directive.
+
+     To examine how macros function, we must first  examine  a  sample
+     use of this "XYZZY" macro.  Let us assume that the following line
+     of source text appears in a program  somewhere  after  the  above
+     macro definition:
+
+                     XYZZY   .WORD,2
+
+     Upon seeing this line, the assembler functions as follows:
+
+     (1) The assembler sees "XYZZY" in the instruction mnemonic  field
+     of  the source line, and, recognizing that it is not an assembler
+     directive (pseudo-op), the assembler determines  whether  or  not
+     "XYZZY"  is  a  user-defined macro before checking it against the
+     list of recognized instructions.  It then  discovers  that  XYZZY
+     was,  in  fact,  previously  defined  by  the user as a macro, as
+
+
+                                    20
+
+
+
+
+
+
+     demonstrated earlier.
+
+     (2) The assembler then examines the definition of XYZZY which was
+     given  to  it  earlier,  and  discovers  that  it  has  two dummy
+     arguments, which were  called  ARG1  and  ARG2.   It  finds  ARG1
+     appearing  in  one  place in the body of the macro definition (as
+     the opcode of the first line) and ARG2 appearing  in  two  places
+     (as  an  operand  field  argument  in  both  lines of the macro).
+     Looking at the macro call line, above, it finds the call  to  the
+     macro XYZZY has two parameters, ".WORD" and "2".
+
+     (3) The assembler replaces the appearance of the line
+
+                     XYZZY   .WORD,2
+
+     with the block of text which was defined for the macro XYZZY, but
+     it  replaces all occurrences of ARG1 (the first dummy argument in
+     the definition) with .WORD (the  first  actual  argument  in  the
+     call),  and  all  occurrences of ARG2 (the second dummy argument)
+     with 2 (the second actual argument).  The resulting lines of code
+     appear as follows:
+
+                     .WORD   2,3,2
+                     .BYTE   2
+
+     Note that all the lines between the .MACRO  line  and  the  .ENDM
+     line  in the macro definition are substituted verbatim, except in
+     places where dummy arguments appear in the macro definition.   In
+     these  places,  and  in  these  places only, the actual arguments
+     appearing in the macro call are substituted.  Note  also  that  a
+     macro  call  is always only one line, but a macro definition (and
+     the resulting expansion of the macro performed by  the  assembler
+     at macro call time) can be many lines long.
+
+     There are several things to remember about  macros  in  order  to
+     minimize confusion on the part of the user.
+
+     First, it cannot be overemphasized  that  the  assembler's  macro
+     processor   operates   strictly   at   the   source   text  (text
+     substitution) level, and that  the  macro  processor  is  not  in
+     itself  concerned  with the syntax of 6502 instructions.  This is
+     significant, because the macro processor portion of the assembler
+     does  not concern itself with whether or not the lines which will
+     result from  a  macro  call  will  be  considered  valid  by  the
+     assembler proper.  For example, a programmer could use the line
+
+                     XYZZY   BLAH, !*GRUMPH
+
+     as a call to the XYZZY  macro  defined  earlier,  and  the  macro
+     processor  would  (correctly)  substitute  "BLAH"  for  ARG1  and
+     "!*GRUMPH" for ARG2.  The resulting lines would be
+
+
+                                    21
+
+
+
+
+
+
+                     BLAH    2,3,!*GRUMPH
+                     .BYTE   !*GRUMPH
+
+     These lines would then be examined by the assembler proper, which
+     would flag them as erroneous.
+
+     Users frequently do not realize that, in  its  text  substitution
+     and  pattern  matching,  the normal "fields" of a source line are
+     not considered by the macro processor.  As an  example,  consider
+     the  following problematic macro definition which an unsuspecting
+     programmer might use:
+
+             THING   .MACRO  M
+             SUM     =       10+M
+                     .ENDM
+
+     The user suspects that this macro will equate SUM to 10 plus  the
+     argument  in the macro call.  Unfortunately, the user has elected
+     to use the dummy argument name "M", which appears  TWICE  in  the
+     macro  body, once after "10+", and once as part of the SUM label.
+     Thus, the call
+
+                     THING   20
+
+     would not generate the line
+
+             SUM     =       10+20
+
+     but would instead generate
+
+             SU20    =       10+20
+
+     The lesson to be learned here is  a  simple  one:   Users  should
+     select dummy argument names which are unique enough not to appear
+     in undesired places within the macro body.   The  fact  that  any
+     characters  (other than "," (comma), ";" (comment character), " "
+     (space), "~" (tilde), "<" (open  angle  bracket)  or  ">"  (close
+     angle  bracket)) may be used in macro dummy argument names can be
+     used to one's advantage.  To insure that the dummy argument  does
+     not  accidentally  appear  where  it  is not desired in the macro
+     body, users frequently find it  convenient  to  start  all  dummy
+     argument  names with an unusual character (e.g.  "%", "&", etc.).
+     For example, the above macro definition could have been rewritten
+
+             THING   .MACRO  %M
+             SUM     =       10+%M
+                     .ENDM
+
+     This would work correctly, since "%M" does not appear anywhere in
+     the macro body except in the desired position.
+
+
+
+                                    22
+
+
+
+
+
+
+     4.2.1 NESTING OF MACROS
+
+     The BSO macro facility  permits  a  variety  of  types  of  macro
+     nesting  and redefinition.  These features prove quite useful for
+     various purposes.  Macros may be redefined at any time;  that is,
+     if a macro "ABC" is defined (and used), and another definition of
+     "ABC" appears subsequently, the new definition supersedes the old
+     definition and is in effect beginning with the next occurrence of
+     a call to "ABC".  Macros may call other macros  (that  is,  macro
+     definitions  may  include  calls  to  other  macros).   When this
+     occurs, all macro expansion is done at macro call time.  Thus, it
+     is  not  necessary  to  define macros in any particular order, as
+     long as all nested macros have been defined by the  time  one  is
+     called.   This  feature,  combined with the redefinition feature,
+     makes it possible to use the macro  facility  to,  for  instance,
+     build  corresponding  entries  in  parallel tables.  Consider the
+     following lines of code:
+
+             STUFF   .MACRO
+                     XX      1,1
+                     XX      2,4
+                     XX      3,9
+                     .ENDM
+
+             XX      .MACRO  %A,%B
+                     .BYTE   %A
+                     .ENDM
+
+             NUMTAB  STUFF
+
+             XX      .MACRO  %A,%B
+                     .BYTE   %B
+                     .ENDM
+
+             SQRTAB  STUFF
+
+     The first thing we see in the example above is a definition for a
+     macro  called "STUFF".  This macro simply contains three calls to
+     another macro, called "XX".  The XX macro has  not  as  yet  been
+     defined, but this is of no consequence, since the user has merely
+     defined the "STUFF" macro, but has not yet attempted to call  it.
+     Had  the  user followed the definition immediately with a call to
+     "STUFF", the assembler would encounter three references to  "XX",
+     which  would  be an undefined instruction at that point and which
+     would generate errors.  Also note that the "STUFF" macro  has  no
+     parameters.   This  is  permissible.   A  macro need not have any
+     dummy arguments at all.
+
+     Following the definition of STUFF, we see a definition  of  "XX".
+     This  macro has two dummy arguments, "%A" and "%B", but only "%A"
+     is actually used within  the  macro  body.   While  this  is  not
+
+
+                                    23
+
+
+
+
+
+
+     normally  done,  the  macro  processor  of the assembler does not
+     consider the condition an error;  it merely notes that  "XX"  has
+     two dummy arguments, but that the second one is never used.
+
+     The next line contains a label (NUMTAB) and a call to  the  macro
+     STUFF.   This  time,  XX  has been defined, so that STUFF expands
+     into three calls to XX,  and  each  of  them  generates  a  .BYTE
+     directive to generate a byte containing the first argument to XX.
+     The end result is a table which looks like
+
+             NUMTAB  .BYTE   1
+                     .BYTE   2
+                     .BYTE   3
+
+     Next, we see that "XX" is redefined.  This definition is  similar
+     to the first definition of XX, except that this time it generates
+     a byte for the SECOND argument,  and  ignores  the  first.   This
+     definition of XX supersedes the earlier definition.
+
+     Now, STUFF is  called  again,  and  generates  another  table  of
+     entries, which looks as follows:
+
+             SQRTAB  .BYTE   1
+                     .BYTE   4
+                     .BYTE   9
+
+     The end result of all this work is that  we  have  generated  two
+     parallel tables, one containing integers and one containing their
+     associated squares.  More entries could easily be added to  these
+     tables  by  adding more "XX" entries within the definition of the
+     "STUFF" macro.  The two tables are guaranteed  to  be  in  phase,
+     because  they  are  generated  using  the  macro  facility of the
+     assembler.
+
+     BSO macros can directly and  indirectly  call  and  define  other
+     macros,  and  can  even  call or define themselves.  When a macro
+     calls itself, the user must be careful to  see  to  it  that  the
+     calling  process  does  not  continue indefinitely.  When a macro
+     defines itself, the new definition  takes  effect  in  subsequent
+     calls  to  the  macro,  but the current macro expansion continues
+     from the old definition.
+
+     Macro calls may be nested to any depth, subject  only  to  memory
+     space limitations.
+
+
+
+
+
+
+
+
+
+                                    24
+
+
+
+
+
+
+     4.2.2 USING .IFB AND .IFIDN CONDITIONALS
+
+     The macro and conditional assembly features of this assembler are
+     frequently  combined  for  various  purposes.  In addition to the
+     normal set of conditional directives, there are several which are
+     useful   only  in  the  context  of  a  macro  expansion.   These
+     conditionals can test whether or not a character string is  blank
+     (.IFB  and  .IFNB)  and  whether or not two character strings are
+     identical (.IFIDN and .IFNIDN).  An example follows:
+
+             ABC     .MACRO  ARG1,ARG2
+                     JMP     ARG1
+                     .IFNB   <ARG2>
+                     .WORD   ARG2
+                     .ENDIF
+                     .ENDM
+
+     If the ABC macro is called with only one  actual  argument,  then
+     that  argument  is  substituted for the dummy argument ARG1.  The
+     dummy argument ARG2 would have a null (empty) string  substituted
+     for it, since no actual argument was supplied in the call.  Thus,
+     the call
+
+                     ABC     FOO
+
+     would expand as follows:
+
+                     JMP     FOO
+                     .IFNB   <>
+                     .WORD
+                     .ENDIF
+
+     Since the string following IFNB is  in  fact  blank,  IFNB  would
+     evaluate  false, and the result would essentially be just the JMP
+     instruction.
+
+     On the other hand, a call like
+
+                     ABC     FOO,5
+
+     would expand differently:
+
+                     JMP     FOO
+                     .IFNB   <5>
+                     .WORD   5
+                     .ENDIF
+
+     This time, the string argument to .IFNB is in fact not blank,  so
+     the .WORD would be generated in addition to the JMP.
+
+     .IFIDN and .IFNIDN perform similarly.  They compare two  strings,
+
+
+                                    25
+
+
+
+
+
+
+     at least one of which is usually a macro argument.
+
+     Note that .IFB, .IFNB, .IFIDN, and .IFNIDN are not useful outside
+     of  macros  because  their  arguments  in such a situtation would
+     always be constant, and they would always generate the same code.
+     Also  note  that  "0" is not a blank argument.  It is an argument
+     with one character in it.  The only truly blank argument  is  one
+     which  is  omitted  from  the  macro call.  If it is not the last
+     argument on the line, an argument  can  be  made  blank  by  only
+     including its trailing comma.  For example, in the macro call
+
+                     MAC     A,,B
+
+     the macro "MAC" is being called with the first argument "A",  the
+     second argument null, and the third argument "B".
+
+     Note that the argument to the four conditionals discussed in this
+     section  is  enclosed  in  angle brackets.  There are special BSO
+     conventions regarding arguments within angle brackets  which  are
+     discussed in Section 4.3.4.
+
+
+
+     4.2.3 COMMENTS ON MACRO LINES
+
+     Comments may be made on macro call or macro definition  lines  in
+     the   same   manner   as   they  are  made  on  lines  containing
+     instructions.  (See Section 2.2.4.)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    26
+
+
+
+
+
+
+     4.3 REPEAT DIRECTIVES
+
+
+     4.3.1 .IRPC
+
+     It is often desired to repeat one or  more  lines  of  a  program
+     several  times, with each repetition different in only one place.
+     The .IRPC command (Repeat Character) allows an  arbitrary  number
+     of  one  character  substitutions  in a sequence of lines.  It is
+     really a special form of a macro, as follows:
+
+                     .IRPC   dummy_arg, actual_args
+                      .
+                      .
+             (The .IRPC lines follow here.)
+                      .
+                      .
+                     .ENDR
+
+     The following example:
+
+                     .IRPC   ARG,ABCD
+                     .BYTE   'ARG'
+                     .ENDR
+
+     would generate the lines:
+
+                     .BYTE   'A'
+                     .BYTE   'B'
+                     .BYTE   'C'
+                     .BYTE   'D'
+
+     Since the repeat directives are in effect  macros,  they  can  be
+     nested  just  as regular macros are.  The following is an example
+     of the nested use of the IRPC directive.
+
+             TABLE   .MACRO  ARG
+                     .IRPC   CHAR,ARG
+                     .BYTE   'CHAR'
+                     .ENDR
+                     .ENDM
+                     TABLE ABXY
+
+     In this example, the .IRPC directive  in  the  macro  causes  the
+     argument "ARG" to be broken into subarguments, each consisting of
+     one character from the string substituted for "ARG".  Each of the
+     characters  is  then substituted in for the dummy argument "CHAR"
+     and the line between the .IRPC and .ENDR (End Repeat)  directives
+     is  repeated  with  this  substitution  for each character in the
+     string.  The following assembly lines would be  produced  by  the
+     macro call line "TABLE ABXY".
+
+
+                                    27
+
+
+
+
+
+
+                     .IRPC   CHAR,ABXY
+                     .BYTE   'CHAR'
+                     .ENDR
+                     .BYTE   'A'
+                     .BYTE   'B'
+                     .BYTE   'X'
+                     .BYTE   'Y'
+
+
+     4.3.2 .IRP
+
+     .IRP is a more general form of IRPC, where the  actual  arguments
+     are  character  strings separated by commas and enclosed in angle
+     brackets, rather than being individual characters.  (A maximum of
+     10 arguments may be used.) For example:
+
+                     .IRP    ARG,<HEL,LO>
+                     .BYTE   'ARG'
+                     .ENDR
+
+     would generate these lines:
+
+                     .BYTE   'HEL'
+                     .BYTE   'LO'
+
+     When an .IRP is nested within a macro whose argument will  become
+     the  .IRP  actual argument, care must be taken to ensure that the
+     .IRP arguments end up enclosed in angle brackets.  Each  time  an
+     argument  substitution  is  made,  the  outermost  pair  of angle
+     brackets is stripped away.  So the following macro:
+
+             MSGS    .MACRO  TEXTS
+                     .IRP    MSG,TEXTS
+                     .BYTE   'MSG'
+                     .ENDR
+                     .ENDM
+
+     could be  called  with  an  argument  enclosed  in  double  angle
+     brackets:
+
+                     MSGS    <<HEL,LO>>
+
+     When the macro is expanded, the .IRP is given the two  arguments,
+     enclosed in a single pair of angle brackets:
+
+                     .IRP    MSG,<HEL,LO>
+                     .BYTE   'MSG'
+                     .ENDR   
+
+     since one pair of brackets  was  stripped  away  when  the  macro
+     argument  substitution  was made.  When the .IRP is expanded, the
+
+
+                                    28
+
+
+
+
+
+
+     final pair of brackets is stripped away:
+
+                     .BYTE   'HEL'
+                     .BYTE   'LO'
+
+     A simpler method with an equivalent result would  be  to  enclose
+     the  actual argument of the .IRP in single angle brackets, and to
+     call the macro with arguments enclosed in single brackets.
+
+             MSGS    .MACRO  TEXTS
+                     .IRP    MSG,<TEXTS>
+                     .BYTE   'MSG'
+                     .ENDR
+                     .ENDM
+
+                     MSGS    <HEL,LO>
+
+     It is good practice to use this  second  method.   This  way  the
+     programmer  will  not  have to worry about the format of the .IRP
+     when making the macro call.
+
+
+
+     4.3.3 .REPT
+
+     The .REPT directive  causes  a  sequence  of  source  code  lines
+     between  .REPT  and .ENDR to be repeated identically an indicated
+     number of times.
+
+     For example, the following code deposits "0" in  five  successive
+     bytes:
+
+                     .REPT   5
+                     .BYTE   0
+                     .ENDR
+
+     .REPT's argument may be any absolute (i.e.  not  relocatable  and
+     not  external) expression, except that forward references are not
+     allowed.
+
+
+
+     4.3.4 ARGUMENTS WITHIN ANGLE BRACKETS
+
+     .IRP arguments and arguments used with .IFB and .IFIDN directives
+     must  be  enclosed in angle brackets.  Angle brackets may also be
+     used when the programmer wants to use a macro or repeat directive
+     argument which contains a comma.
+
+     Normally, a comma in an argument list separates  arguments.   For
+     example, the line:
+
+
+                                    29
+
+
+
+
+
+
+             XYZ     ARG1,ARG,2,ARG3
+
+     is a call to the macro XYZ with  four  arguments.   However,  the
+     line:
+
+             XYZ     ARG1,<ARG,2>,ARG3
+
+     calls XYZ with three arguments:  "ARG1", "ARG,2" and "ARG3".  Any
+     comma   occurring   within   enclosing  angle  brackets  will  be
+     considered a literal character, not an argument delimiter.   When
+     an  argument substitution is made, the (outermost) angle brackets
+     are stripped away.
+
+     When multiple argument substitutions are made, as when macros  or
+     repeat  directives  are  nested,  arguments containing commas may
+     need to be enclosed in multiple  pairs  of  angle  brackets.   An
+     example  and  description  of multiple angle brackets is given in
+     Section 4.3.2.
+
+     As long as angle brackets are evenly paired, any number of  angle
+     brackets  may  be  nested  within  each  other.   However,  if an
+     argument must contain a  single  angle  bracket,  something  must
+     indicate  to  the assembler that this is not the beginning or end
+     of an argument.  The  convention  used  by  BSO  is  the  "tilde"
+     convention,  which specifies that the character immediately after
+     a tilde (~) will be taken literally.  For example, the call
+
+                     XYZ     <ARG~<>
+
+     specifies the argument  string  "ARG<".   In  addition  to  angle
+     brackets,  a  comma,  a  tilde  itself,  or any character, may be
+     placed in a macro argument by preceding it with a tilde.
+
+     Several examples of the use of angle brackets, commas and  tildes
+     in argument passing are given below.
+
+             MAC1    A,<B,C,~>>      (Two arguments: "A" and "B,C,>")
+             MAC2    A~,B,C,<<A,B>>  (Three arguments: "A,B", "C",
+                                      and "<A,B>")
+             .IRP    DUM,<2,3>       
+             .IRP    DUM,2~,3        (Same as previous line)
+             .IRP    DUM,2,3         (Incorrect)
+             .IRP    DUM,<A,B,<C,D>> (Three repetitions)
+
+             .IRPC   DUM,2345        (Four repetitions)
+             .IRPC   DUM,<2345>      (Same as previous line)
+
+     The  assembler  recognizes   spaces   as   argument   delimiters;
+     therefore, to have a space taken literally within a string passed
+     as an argument to a macro, the string must be enclosed  in  angle
+     brackets, or the space must be preceded by a tilde.
+
+
+                                    30
+
+
+
+
+
+
+     4.4 LISTING CONTROL
+
+     This cross assembler permits the user to control to  some  extent
+     the  format of the list file produced.  The directives which deal
+     with this listing control are summarized below.
+
+     The three directives .NAM,  .SUBTTL  and  .FORMLN  will  actually
+     appear  in  the list file;  all the rest will not unless there is
+     an error on the line including the directive.
+
+
+     4.4.1 .BLIST/.MLIST/.NMLIST
+
+     When a user calls a macro, the assembler usually shows the  macro
+     call  and  its  expansion  (textually) in the list file (.MLIST).
+     This default mode can be changed through the .BLIST  and  .NMLIST
+     directives.   The  latter,  NMLIST,  causes the assembler to only
+     show the call to a macro, and never show  its  expansion  in  the
+     listing.  .BLIST is a compromise mode, which causes only lines of
+     macro expansion which generate some code to be listed.  That  is,
+     when  .BLIST  is  specified, lines of a macro expansion will only
+     appear in the listing if they cause the current location  counter
+     value  to  be  printed on their listing line.  Such lines include
+     those which  define  values  as  well  as  those  which  actually
+     generate  code.   These three directives each represent different
+     macro listing modes;  using one will counteract a previous use of
+     either of the other two.
+
+     .BLIST, .MLIST and .NMLIST  similarly  determine  the  manner  in
+     which the Repeat Directives are listed.
+
+
+     4.4.2 .CLIST/.NCLIST
+
+     Normally, blocks of conditional  code  which  are  assembled  out
+     (condition tests false) still appear in the listing (.CLIST).  By
+     specifying  .NCLIST,  the  user  can  cause  such  lines  to   be
+     eliminated from the listing.
+
+     The lines containing  the  conditional  directives  (.IF,  .ELSE,
+     .ENDIF)  will  not show in the list file unless there is an error
+     on a line.
+
+
+     4.4.3 .FORMLN
+
+     The directive ".FORMLN n" where n is a  decimal  integer  greater
+     than or equal to six, changes the assembler's default form length
+     to "n" lines.  Initially, this value is 55.  After every n lines,
+     the  assembler will advance automatically to the next page in the
+     list file.
+
+
+                                    31
+
+
+
+
+
+
+     4.4.4 .GEN/.NOGEN
+
+     The listing format has room for a fixed number of bytes of object
+     code  per  listing  line.   Normally, if a line of source program
+     generates more than this fixed amount, the listing will show  the
+     additional  bytes  on subsequent lines in the listing (.GEN).  If
+     this is not desired, the user may specify  .NOGEN.   This  causes
+     only  the first line of object code to be printed in the listing.
+     The object file still contains the complete information in either
+     case.
+
+
+     4.4.5 .LIST/.NLIST
+
+     The user can turn off the listing of sections of code  completely
+     by  using .NLIST.  The .NLIST directive will cause the listing to
+     stop;  .LIST will cause it to resume.
+
+     An .NLIST directive will always turn  off  the  listing  even  if
+     there  have been nested .LIST directives before it.  However, the
+     opposite is not true.  If there  are  nested  .NLIST  directives,
+     there  must  be one .LIST directive for each nested .NLIST before
+     the listing can be turned back on.
+
+
+     4.4.6 .PAGE
+
+     The .PAGE directive causes the listing to advance to the  top  of
+     the  next  page.   This also occurs if a form feed (control/L) is
+     encountered in the source file, and automatically every 55 lines,
+     or  as set by .FORMLN (see Sec.  4.4.3).  If a .PAGE directive is
+     used, only the form  feed  occurs  in  the  listing;   the  .PAGE
+     directive  itself  does  not  appear.  Use of either the standard
+     .PAGE directive or a form feed will advance the page number;   an
+     advance  to a new page caused by .FORMLN will advance the subpage
+     number.
+
+
+     4.4.7 .SPACE
+
+     The directive ".SPACE expr" causes the  assembler  to  leave  the
+     specified  number  of  blank  lines in the list file at the point
+     where the directive appears.  "Expr" is any expression which  can
+     be  resolved  to  an absolute value at assembly time.  The actual
+     .SPACE directive does not appear in the listing.
+
+
+
+
+
+
+
+
+                                    32
+
+
+
+
+
+
+     4.4.8 .SUBTTL
+
+     The directive ".SUBTTL subtitle_name" specifies a subtitle, where
+     "subtitle_name"  includes  all characters typed between the first
+     non-space character after ".SUBTTL" and a carriage  return.   The
+     subtitle  will  be printed on the second line of each page of the
+     list file.  Subtitles may be changed as often as  desired.   This
+     helps  the  user  locate sections of a large listing quickly.  If
+     the first line on a page is a .SUBTTL  directive,  that  subtitle
+     will appear on that page in the listing.  If a .SUBTTL appears in
+     the middle of a page, it will become effective starting with  the
+     next listing page.
+
+
+     4.4.9 .NAM
+
+     The object module output by this particular assembly is named  by
+     the   directive  .NAM;   the  format  of  the  command  is  ".NAM
+     title_name".  "Title_name" includes all  characters  between  the
+     first  non-space  character  after  ".NAM" and a carriage return.
+     Only one ".NAM" directive may appear in any program.
+
+     This name is printed at the top of each listing page, and is  the
+     "module  name"  used  by  various Librarian commands and in MLINK
+     program maps, subject to the use of correct MLINK  commands  (see
+     the MLINK user's manual for more information).
+
+     If no module name is  specified  with  the  .NAM  directive,  the
+     default name is ".MAIN.".
+
+     The BSO directive .TITLE functions identically to .NAM and may be
+     used in its stead.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    33
+
+
+
+
+
+
+     4.5 MISCELLANEOUS DIRECTIVES
+
+
+     4.5.1 INPUT CONTROL:  .INCLUDE
+
+     At any point in a source program, the assembler can  be  directed
+     to  include  the source text from another file as if it were part
+     of the source program requesting the inclusion.
+
+     The argument is a standard file specification of  the  same  type
+     found in the assembler command line.  An example of this usage:
+
+             ; DEFINITIONS OF SOME PARAMETERS
+
+             XX      =       1
+             YY      =       2
+             ZZ      =       3
+
+             ; INCLUDE COMMON MACRO DEFINITIONS
+
+                     .INCLUDE        COMMON.SRC
+
+     Common usage of INCLUDEs, as shown above, would be to INCLUDE the
+     text from a file containing definitions of macros used frequently
+     in many programs (in this example, the file is named COMMON.SRC).
+     This may be preferable to listing a number of source files in the
+     assembly command line, as there is no  limit  to  the  number  of
+     files which may be INCLUDEd.  Should an extension not be supplied
+     by the user in the name of the file to be INCLUDEd,  the  default
+     extension ".SRC" will be assumed.
+
+     INCLUDEd files may also  INCLUDE  other  files;   i.e.   .INCLUDE
+     directives may be nested (to a maximum level of five).
+
+
+
+     4.5.2 DEFAULT RADIX CONTROL:  .RADIX
+
+     Normally, numbers appearing without any indication of  radix  are
+     assumed  to  be  decimal  (base 10) numbers.  By using the .RADIX
+     directive, the user can change this default to any base between 2
+     and 16 (expressed in decimal), inclusive.  For example:
+
+                     .RADIX  16
+
+     changes the default radix to hexadecimal.
+
+     The .RADIX directive may also be used to change the default radix
+     back to decimal, if desired, after it has been changed.
+
+
+
+
+                                    34
+
+
+
+
+
+
+     4.5.3 PRINTOUT DURING ASSEMBLY:  .MESSG
+
+     The programmer may specify a "message" which will be  printed  on
+     the  user's  terminal (or output device in a batch job) as Pass 2
+     parses the line containing the directive.
+
+     The .MESSG directive is followed by the desired message delimited
+     by single or double quotes.  The delimiter may be inserted in the
+     message by doubling it.  For example:
+
+               .MESSG 'ABC''D' 
+
+     will cause the printing of
+
+               ABC'D 
+
+     at assembly time.
+
+
+
+
+     4.5.4 LOCAL SYMBOL BLOCK CONTROL:  .LOCAL
+
+     The .LOCAL  directive  (which  takes  no  arguments)  may  appear
+     wherever  it  is desired to delimit a local symbol block from the
+     next local symbol block.  After issuing a .LOCAL  directive,  all
+     previously-defined  local symbols are considered to be undefined,
+     and new local symbols may be  defined,  even  if  they  duplicate
+     local symbols used prior to the .LOCAL directive.
+
+     A new local symbol block is also considered to start  whenever  a
+     line  which  defines a permanent (non-local) label appears in the
+     source text.  Note that the term "permanent  label"  describes  a
+     symbol  which  is given an address value by the assembler, and as
+     such does not include symbols used in the label field  with  such
+     pseudo-ops as MACRO, =
+
+     The following example illustrates use of local  symbols  and  the
+     .LOCAL directive:
+
+             AAA     ...                New local block
+             1$      JMP 2$             2$ is in the same block
+             2$      JMP 1$             Jumps to first 1$
+                     .LOCAL             New local block
+                     JMP 1$             Jumps to second 1$
+             1$      JMP 2$             Error- 2$ undefined here
+             BBB     JMP 1$             Error- New block starts
+                                        here and 1$ not defined
+
+     See Section 2.2.1 for further discussion of local symbols.
+
+
+
+                                    35
+
+
+
+
+
+
+     4.6 RELOCATION CONTROL
+
+     In relocatable mode, this assembler and  BSO's  compatible  Cross
+     Linkage  Editor,  MLINK,  support  multiple  program sections and
+     fixup  by  the  linkage   editor   of   relocatable   expressions
+     unresolveable  at assembly time.  (Complete documentation on this
+     package is available in the MLINK user's manual.)  The  assembler
+     directives  associated  with  this feature are shown below.  Note
+     that except for .SECT and =, these directives will  not  work  in
+     absolute   mode.   Therefore,  if  the  assembler  is  not  in  a
+     relocatable mode, these directives will cause assembly errors.
+
+
+     4.6.1 CODE ORGANIZATION
+
+     The following directives tell the assembler that code is about to
+     be  started  (or  continued) in a specified section.  The Linkage
+     Editor will group all code from the same section together.  NOTE:
+     To  avoid  errors  at  link  time, sections with the same name in
+     different modules must have the same attributes.
+
+     Typical use of program sections would be to have  a  RAM  section
+     and  a ROM section (which might even be given the names "RAM" and
+     "ROM") in order to load several programs with both code and  data
+     together.
+
+
+     4.6.1.1 .SECT
+
+     The format of the .SECT directive the first time it  occurs  with
+     each section name is:
+
+               .SECT section_name, ABS/REL, attribute, attribute, ...
+
+     where "section_name" is a user-defined name (consisting of  1  to
+     thirty-one alphanumeric characters), followed by either "ABS" (to
+     indicate that an absolute section is being  described)  or  "REL"
+     (to indicate a relocatable section).  Note that in absolute mode,
+     only "ABS" is allowed.
+
+     If "ABS" is specified, the following attribute may be  listed  on
+     the command line:
+
+               LOC=address_expression (initial location counter value)
+
+     For example:
+
+               .SECT A, ABS, LOC=100
+
+     When "REL" is specified after the  section  name,  the  following
+     attributes may be listed:
+
+
+                                    36
+
+
+
+
+
+
+               TYPE=CON/OVR           
+
+               ALIGN=BYTE/WORD/PAGE:INPAGE
+
+               RANGE=min_address:max_address
+
+     The "TYPE" attribute specifies whether sections of the same  name
+     from  different  modules  will  be concatenated or overlaid.  The
+     order of concatenation is  the  same  as  the  order  of  modules
+     specified in the INPUT command given to the Linker.
+
+     The "ALIGN" attribute causes  relocation  alignment  of  sections
+     along   the  specified  boundaries.   The  optional  addition  of
+     "INPAGE" specifies that a  section,  however  aligned,  must  not
+     cross  a page boundary.  For instance, "ALIGN=WORD:INPAGE" starts
+     the section at the next available word, and will  give  an  error
+     message if the section extends past the current page.
+
+     The "RANGE" attribute specifies  the  absolute  memory  locations
+     within which the section must be relocated.
+
+     When only part of the complete .SECT directive is typed,  certain
+     defaults  apply.  If no attributes are given after "ABS", "LOC=0"
+     is  assumed.   If  no  attributes  are  given  after  "REL",  the
+     following  default attributes are assumed:  TYPE=CON, ALIGN=BYTE,
+     RANGE=0:65535.  If neither "ABS" nor  "REL"  are  specified,  the
+     default mode is the mode of the assembly.
+
+     If the section name is omitted, it defaults  to  ".ABS."  for  an
+     absolute  assembly and ".REL." for a relocatable assembly.  These
+     names are automatically given by the  assembler  to  the  section
+     before  the  first  .SECT  directive.   Thus, the .SECT directive
+     alone on a line continues the initial .ABS.  or .REL.  section.
+
+     All code following a .SECT directive is assumed to belong to  the
+     section described in the directive, until another .SECT directive
+     is given, describing a new section.
+
+     Should the programmer wish to append code to a  section  of  code
+     which  appeared  earlier,  the  .SECT  directive, followed by the
+     section name described before, may be issued.
+
+     The format is:
+
+               .SECT section_name
+
+     Note that no information besides the section name is allowed.
+
+     This will cause all  following  code  (until  the  appearance  of
+     another  .SECT  directive)  to be appended to existing code under
+     the specified section name.
+
+
+                                    37
+
+
+
+
+
+
+     4.6.1.2 .ASECT, .RSECT, .ZSECT
+
+     The directives .ASECT, .RSECT and .ZSECT may be used in place  of
+     three specific .SECT configurations:
+
+          .ASECT section_name == .SECT section_name, ABS, LOC=0
+          .RSECT section_name == .SECT section_name, REL, TYPE=CON, 
+                               ALIGN=BYTE, RANGE=0:65535
+          .ZSECT section_name == .SECT section_name, REL, TYPE=CON, 
+                               ALIGN=BYTE, RANGE=0:255
+
+     Since these directives represent .SECT  directives  with  certain
+     attributes,  they  may  not  take  attributes themselves.  If the
+     section name is omitted, ".ABS." is assumed for  .ASECT,  ".REL."
+     for .RSECT, and ".ZER." for .ZSECT.
+
+     The format for the .ASECT, .RSECT and .ZSECT commands is the same
+     for  the  first  description  of  a section as for any successive
+     ones.
+
+
+     4.6.2 =, .AORG, .RORG, .ZORG
+
+     Each section carries its own instruction counter.  Normally,  the
+     first  occurrence  of  a  .SECT, .ASECT, .RSECT or .ZSECT implies
+     that the location counter for that section is to start  at  zero,
+     and each additional occurrence continues where the last code from
+     that section ended.  For instance, if the last ROM  section  code
+     were  assembled  at relocatable location 105, the next occurrence
+     of a ".RSECT ROM" directive (to return to the ROM section)  would
+     cause code to be assembled beginning at relocatable location 106.
+
+     Occasionally, (particularly in absolute sections rather  than  in
+     relocatable  sections)  it  is  desired  to  adjust  the location
+     counter to some other value.  The following four  directives  are
+     for  that  purpose.  An .AORG directive may only appear within an
+     absolute section, an .RORG within a relocatable  section,  and  a
+     .ZORG  within  a  section defined with a .ZSECT.  (If a zero page
+     section is defined with a .SECT directive instead of a .ZSECT, an
+     .RORG should be used rather than a .ZORG.)
+
+     The general-purpose  =  directive  may  appear  in  any  type  of
+     section;   it  uses  the correct type of origin, depending on the
+     current relocation context.  However, it is recommended that  the
+     programmer use the specific .AORG, .RORG and .ZORG directives, as
+     they help to ensure that code is being put in the right  section.
+     (Using  the  wrong type of "ORG" will cause the assembler to flag
+     an error, but the "ORG" will be performed.)
+
+     The general format of one  of  these  directives  is  illustrated
+     below:
+
+
+                                    38
+
+
+
+
+
+
+             .ASECT  TEST
+             .AORG   0100
+
+     In this example, code in absolute section "TEST" is being started
+     (or continued) at absolute location 100.
+
+
+     4.6.3 .INTERN and .EXTERN
+
+     The  .INTERN  and  .EXTERN  directives  specify  internal  global
+     symbols,  and  external  global symbols respectively.  The format
+     is:
+
+             .INTERN symbol, symbol,...
+     or
+             .EXTERN symbol:type, symbol:type,...
+
+
+     The .INTERN directive  indicates  that  the  symbols  listed  are
+     global  and  defined within the current program module.  They are
+     INTERNal symbols, which may be referenced by other modules.
+
+     The .EXTERN directive  indicates  that  the  symbols  listed  are
+     global  and  referenced  within  the  current module, but defined
+     elsewhere.  They are EXTERNal symbols, and their values  must  be
+     defined in some other module at linkage time.
+
+     To declare that an external can be referenced in  one  byte,  the
+     user  may  specify  type  "PGZ" (page zero).  Otherwise, the type
+     after an .EXTERN directive is not used.
+
+
+
+     4.6.4 INSTRUCTION TO LINKER:  .LINK
+
+     An instruction to BSO's linkage editor, MLINK, may be included in
+     an object file with the ".LINK" command.  When the object file is
+     linked, the message will be read by the Linker, and treated as if
+     it had been typed in at linker command level.
+
+     The .LINK directive is  followed  by  a  command  in  the  format
+     described above for the MESSG directive.  For example:
+
+               .LINK "DEFINE FOO=100"
+
+
+
+
+
+
+
+
+
+                                    39
+
+
+
+
+
+
+     5.0 FILE FORMATS
+
+     5.1 LISTING FILE FORMAT
+
+     5.1.1 HEADING
+
+     The format of the header on each page allows the listing files to
+     be  self-documenting.   The  header includes the date and time of
+     assembly, name and version number of the  product  that  did  the
+     assembly,  as  well  as  the  title  (as  specified  in  the .NAM
+     directive or ".MAIN." if no title was  specified),  the  subtitle
+     (if  a  subtitle  has been given with the .SUBTTL directive), and
+     the name of the source file from which the listing was made.
+
+
+     5.1.2 FIELDS IN THE LISTING
+
+     There are five fields in a wide  forms  listing,  four  in  short
+     forms.  These are described from left to right.
+
+          1.  Error Field.  This has room for a pre-determined  number
+              of  errors:   5 for normal forms, 3 for short forms.  If
+              more errors  occur  than  will  fit  in  the  field,  an
+              asterisk is printed in place of the last printed error.
+
+          2.  Address Field.  This shows the value of the  PC  at  the
+              start  of the source line.  It is present on lines which
+              contain labels and/or data.
+
+          3.  Data Field.  This field displays the data  generated  by
+              the  source  line.   If all the data will not fit on one
+              line, multiple lines will be generated unless .NOGEN  is
+              used (see Section 4.4.4).
+
+              Data in the listing takes the following form:
+
+                       Bytes:      EDDF
+                       Words:      EDDDDF
+
+              where    E = Equate.  On values which correspond to 
+                           certain pseudo-ops (=, =, conditionals,
+                           etc.) an equal sign ("=") will precede the 
+                           data argument.  This indicates that the 
+                           data is not object code, but only a refer-
+                           ence for the user.
+
+                       D = Data, represented as follows:
+
+                           Absolute value:    value
+                           Relocatable value: offset from beginning of
+                                              section
+
+
+                                    40
+
+
+
+
+
+
+                           Unresolved expr:   Usually 0
+                           External:          a number, beginning with
+                                              1 and increasing with
+                                              each external defined
+                                              with EXTERN
+
+                       F = Flag.  The flags are as follows: 
+
+                             (null)         = Absolute
+                           ' (single quote) = Relocatable
+                           " (double quote) = Unresolved expression
+                           * (asterisk)     = External
+
+          4.  Sequence Field.  This field  is  not  present  on  short
+              forms.   Each  source line (including lines within macro
+              expansions) is given a unique number for cross reference
+              purposes.
+
+              If the source line came  from  a  macro  expansion,  the
+              sequence  number  will be followed by a single letter (A
+              through Z) to indicate the nesting  depth.   For  macros
+              nested deeper than 26 levels, a "*" is printed.
+
+              If the current source line contains a  macro  call,  the
+              sequence number (and nesting indicator) will be followed
+              by a "+".
+
+          5.  Source Field.  This is the source line as it  came  from
+              either an input file or a macro expansion.
+
+
+     5.1.3 SYMBOL TABLE
+
+     Symbol values will be listed in one of the following ways:
+
+              "Reserved"  - Reserved symbol
+
+              value "EX"  - Symbol has been declared an External (the
+                            value is the External number, as above).
+
+              "*****"     - Symbol was referenced but never assigned
+                            a value, or was assigned an improper
+                            value such as a forward reference.
+
+              "Macro"     - Symbol is a macro name.
+
+              value       - Symbol has the indicated absolute value.
+
+              value'      - Symbol has the indicated relocatable
+                            value.
+
+
+
+                                    41
+
+
+
+
+
+
+              value "IN"  - Symbol is Internal and has the indicated
+                            absolute value.
+
+              value' "IN" - Symbol is Internal and has the indicated
+                            relocatable value.
+
+
+
+     5.1.4 CROSS REFERENCE SYMBOL TABLE
+
+     The Cross Reference Symbol Table appears at the end of  the  list
+     file  if  the  cross  reference  option has been purchased by the
+     customer and the "/X" switch was used in the  command  line  when
+     the  program  was  assembled  (or  the  cross reference option is
+     established as the default).
+
+     The Cross Reference Symbol Table appears after the  Symbol  Table
+     described  in  Section 5.1.3.  The symbol name is followed by the
+     sequence number of each line which contains a  reference  to  the
+     symbol.  Sequence numbers may be followed by:
+
+              # (pound sign)  - indicates that the symbol
+                                was defined in this reference.
+
+              $ (dollar sign) - indicates a write reference
+                                to the symbol.
+
+              nothing         - indicates a read reference to
+                                the symbol.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    42
+
+
+
+
+
+
+     5.2 OBJECT FILE FORMAT
+
+     The object file produced by this assembler is an  ASCII  file  in
+     BSO  format.   Since the format is quite complex, and since files
+     in BSO format are only used as input to other BSO software,  such
+     as the linker, debugger or OBJCNV, no detailed explanation of BSO
+     format is included in this manual.
+
+     When an object file in MOS  Technology  format  is  desired,  the
+     absolute  file  resulting from BSO's absolute assembler, or BSO's
+     relocatable assembler and linker, must be run through OBJCNV, the
+     object  file  conversion utility.  The MOS Technology format file
+     which will be produced by OBJCNV is an ASCII file in  the  format
+     required  by  the  MOS  Technology  loader.  The record layout is
+     shown below:
+
+
+          ;            First character of each record
+          2 chars      Number of pairs of data bytes to follow
+          4 chars      Load address of first byte of record (Number of
+                       previous records in the case of the last 
+                       record)
+          2 chars      First data byte
+          2 chars      For each additional data byte
+          4 chars      Checksum*
+
+     *The checksum is the sum of the values of all the 8-bit bytes  in
+     the record.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    43
+
+
+
+
+
+
+     6.0 ERROR HANDLING
+
+     6.1 PROGRAM ERRORS
+
+     This assembler will print error messages at the  user's  terminal
+     (unless  /N was specified in the command line) and in the program
+     listing if a list file was requested in the command line.  Errors
+     are  indicated  by  one  or  more  characters  at the left of the
+     listing line in which they occurred.  The assembler will  attempt
+     to  generate some code for each source line regardless of whether
+     an error occurs on the line or not.
+
+
+     Error                     Meaning
+      Code
+
+
+     A       Address error.  Address specified is  out  of  range  for
+             given instruction.  Relative branch out of bounds, etc.
+
+     B       Balance  error.   Unmatched  delimiters  (e.g.    quotes,
+             parentheses, brackets, etc.)
+
+     C       Character  error.   Indicates  a  character  not  in  the
+             supported subset for the assembler.
+
+     D       Macro definition error.  Indicates macro definition which
+             is  missing  the  name of the macro, or one with too many
+             dummy arguments specified.  The entire  macro  definition
+             (up to its matching .ENDM) is ignored.
+
+     E       Expression  error.   Invalid  syntax  in  an  expression,
+             usually one of the following:
+             (1) Missing last term
+             (2) Division by zero.
+             (3) Missing expression (blank field)
+
+     F       Format error.  Probably a missing or incorrect field.
+
+     J       Warning that address space is filled.   Location  counter
+             wrapped  around from the last allowable address to 0, and
+             a byte was deposited.
+
+     L       Erroneous use of a local symbol (i.e.  with = or .MACRO).
+
+     M       Multiply-defined symbol.  A symbol is defined  more  than
+             once   (where  this  is  illegal).   All  but  the  first
+             definition are ignored.
+
+
+
+
+
+
+
+                                    44
+
+
+
+
+
+
+     N       Nesting error.  Mispaired .IF:.ENDIF, .MACRO:.ENDM,  etc.
+             This  is  an  error which encompasses more than one line.
+             Single-line delimiter pairing  errors  normally  generate
+             "B"  errors.   This error will also occur when .INCLUDE's
+             exceed the maximum nesting level of five.
+
+     O       Undefined instruction mnemonic (opcode).
+
+     P       Phase error.  Pass 2 value of symbol not equal to pass  1
+             value  of symbol.  The pass 1 value prevails.  This error
+             code may also indicate an illegal forward reference, such
+             as  branch  out  of  range,  or  an attempt to redefine a
+             symbol which has already been referenced.
+
+     Q       Questionable syntax.  Generally a warning which indicates
+             a  line  is  not  entirely of proper syntax, and that the
+             assembler  has  made  some  assumption  about  what   the
+             programmer    intended.     Often    indicates   improper
+             delimiters,  extra  delimiters,  or  missing  delimiters.
+             This error code is also produced when an "EVEN" directive
+             appears in a SECTION which has been  defined  as  aligned
+             only  on  a  BYTE  boundary.   In such a case, the "EVEN"
+             directive is ignored.
+
+     R       Relocation error.
+
+     S       Invalid symbol.  Use of the wrong type of user symbol  in
+             the  wrong  place  (e.g.   macro  name  used as part of a
+             numeric expression, etc.).  This  error  code  will  also
+             flag all lines on which references appear to symbols that
+             are multiply-defined in the program.   While  the  latter
+             does  not  strictly  indicate  an  error condition, it is
+             possible that changing one of the multiply defined symbol
+             names  might  require  changing lines which reference it;
+             therefore, such lines are flagged  by  the  assembler  to
+             facilitate locating them.  This error can also occur when
+             a forward reference to  a  redefined  special  symbol  is
+             made.   In addition, any attempt to define a symbol whose
+             name is the same as a section (segment) name will produce
+             this error.
+
+     U       Undefined  symbol.   A  symbol  is   referenced   in   an
+             expression,  but  that  symbol has no defined value.  The
+             assembler assumes the symbol to have a value of zero.
+
+     V       Value error.  An operand value was out  of  range,  or  a
+             relocatable or external in the wrong context.
+
+
+
+
+
+
+
+
+                                    45
+
+
+
+
+
+
+     W       Wasted byte warning.  Indicates that an extended  address
+             was  generated because of a forward reference to a symbol
+             appearing in the operand field.  The assembled code  will
+             still work correctly, but a byte of memory may be wasted.
+             This error can frequently  be  corrected  by  rearranging
+             code in the source program.
+
+     Y       Assembler  feature  not  implemented.    The   user   has
+             attempted  to use an assembler directive or feature which
+             is not implemented in  the  currently-running  assembler.
+             Also flags relocation-oriented directives used without /R
+             in command string.
+
+     *       Too many errors detected on the source line to print  all
+             of the error codes for this line.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    46
+
+
+
+
+
+
+     6.2 SYSTEM ERRORS
+
+
+     While initiating or during an assembly, an improper  command  may
+     be  entered  or  the  operating system may encounter errors.  The
+     messages that may be generated in response to  these  errors  are
+     listed and explained below.
+
+     The nature of each message  is  written  after  its  description.
+     Command  error  messages  are  the result of a mistake or problem
+     encountered by the assembler  while  it  attempted  to  read  the
+     command  line;   the  assembler  will reprompt for a command line
+     after a  command  error  message  is  issued.   Diagnostic  error
+     messages  point  out  errors  in  the program being assembled.  A
+     diagnostic error will not halt assembly.   Fatal  error  messages
+     are printed out when an assembly is aborted.
+
+
+     Additional input after  An END statement was not followed by
+     end statement ignored   end of file.  This could result from
+                             an END statement in an INCLUDEd file, 
+                             a source file with the END statement
+                             not at the end of file, or a source 
+                             file with an END statement which is
+                             not the last input file in the command
+                             line (diagnostic error message).
+
+     Available memory        This indicates that the program used
+     exceeded                too many macros or ran out of virtual memory.  
+                             This error could also result from omission
+                             of BSO_SYMBOL's needed assignment statement
+                             when the assembler is built.  See the load-
+                             ing instructions which accompanied the most
+                             recent shipment of the assembler or section
+                             9.0 of this manual for details.  If this error 
+                             occurs frequently, you may wish to increase the
+                             amount of free space allocated to the assembler
+                             by rebuilding it (see the software installation
+                             instructions).
+                             (fatal error message)
+
+     Available memory        This indicates that the program used
+     exceeded while          too many macros.
+     expanding macro          If this error occurs frequently,
+                             you may wish to increase the amount
+                             of free space allocated to the 
+                             assembler by rebuilding it (see 
+                             the Software Installation Instruc-
+                             tions) (fatal error message).
+
+
+
+
+
+
+                                    47
+
+
+
+
+
+
+
+     Command syntax error    The command line was improperly
+                             entered.  See the "HELP" message or 
+                             Section 1.0 of this manual for a
+                             description of proper command syntax
+                             (command error message).
+
+     Could not open source   The system could not open the
+     file: xxx               identified source file.  Check the
+                             file specification and file pro-
+                             tection (diagnostic error 
+                             message).
+
+     Error closing output    The operating system could not
+     file                    close the specified output file
+                             (fatal error message).
+
+     Error initializing      The necessary assignment statement
+     symbol table            for BSO_SYMBOL was not 
+                             correctly made.  Please see the
+                             loading instructions accompanying
+                             your most recent shipment of the
+                             assembler or Section 9.0 of this
+                             manual for more information
+                             (fatal error message).
+
+     Error OPENing output    The system could not open either
+     file                    the specified listing or object file
+                             (command error message).
+
+     Error OPENing source    The system could not open the 
+     file                    specified source file (fatal error
+                             message).
+
+
+     Error reading command   The operating system experienced
+     line                    an error while reading the command
+                             line (the command line itself is 
+                             not at fault) (command error 
+                             message).
+
+     Error reading source    An error was encountered by
+     file                    the operating system during an 
+                             attempt to read from a source or
+                             INCLUDE file (fatal error 
+                             message).
+
+     Error writing output    An error was encountered by
+     file                    the operating system during an
+                             attempt to write to an object or
+                             listing file (fatal error 
+                             message).
+                             
+
+
+                                    48
+
+
+
+
+
+
+     False conditional in    End of file was encountered 
+     progress                before the end of the "false"
+                             section of a conditional (ENDIF 
+                             statement needed) (diagnostic
+                             error message).
+
+     File specification      A file was incorrectly specified in
+     error                   the command line (command error
+                             message).
+
+     /M switch setting       The command line included the /M:nn
+     exceeds maximum or      switch where "nn" specified an
+     less than zero          invalid number of macro arguments
+                             (less than zero or greater than fifty).
+
+     Macro definition in     The assembly reached an end of file
+     progress                marker in the middle of a macro
+                             definition (ENDM statement missing)
+                             (diagnostic error message).
+
+     Missing end statement   No END statement was found in any 
+                             file assembled (diagnostic error
+                             message).
+
+     Too many output files   Only one object file may be 
+     specified               specified for a given assembly
+                             (command error message).
+
+     Too many source files   There is a limit of five source 
+     specified               files for a given assembly, not
+                             counting INCLUDEd files (command 
+                             error message).
+
+     Unknown switch          A nonexistent switch was specified 
+                             in the command line (command 
+                             error message).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    49
+
+
+
+
+
+
+     7.0 SUMMARY OF DIFFERENCES
+
+     This assembler is compatible with the the MOS Technology  MCS6500
+     Microcomputer Family Programming Manual, #6500-50 for the 6502 by
+     MOS Technology with several exceptions.  These are listed below.
+
+          1.  The following features conform to BSO standards and  may
+              conflict   with   similar   features   offered   by  the
+              manufacturer.
+
+                        (A)  macro processing
+                        (B)  conditional assembly directives
+                        (C)  listing control
+                        (D)  repeat directives
+                        (E)  relocation control
+
+          2.  Thirty-one characters of symbols are significant.
+
+          3.  When using the  .BYTE  directive,  a  delimiter  may  be
+              inserted  within  the  string by a double delimiter (see
+              Sec.  4.5.3).
+
+          4.  It is possible to use "=" with a single external  symbol
+              (but not with an expression which includes an external).
+
+     Please note that in most cases, macros can be written by the user
+     to  duplicate  directives  that are supported by the manufacturer
+     but do not appear in BSO  software.   Using  macros  rather  than
+     specific  directives  may improve portability between development
+     systems.
+
+     The list of differences above is accurate  to  the  best  of  our
+     knowledge;   however,  BSO  does not warrant that it is complete.
+     In addition, this or any other BSO  product  is  not  necessarily
+     compatible  with  any past, current or future implementation of a
+     similar product by any microprocessor manufacturer.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    50
+
+
+
+
+
+
+     8.0  DIFFERENCES BETWEEN BSO CROSS ASSEMBLERS WITH EXTENDED 
+          SYMBOL TABLE CAPABILITIES AND WITHOUT EXTENDED SYMBOL 
+          TABLE CAPABILITIES
+
+
+     There are several differences between BSO cross  assemblers  with
+     Extended  Symbol  Table capabilities (EST) and those without EST.
+     Many of these differences are directly related  to  the  enhanced
+     symbol  handling  abilities  of  the  EST version of the product.
+     Anyone coming into contact with both types of  assemblers  should
+     be aware of these differences.
+
+          1.  The number of symbols supported is limited by the user's
+              disk  space for EST versions of assemblers and by memory
+              for non-EST versions of assemblers.
+
+          2.  Non-EST versions of the assemblers permit  user  symbols
+              to  be one to six characters in length;  EST versions of
+              the products permit symbols  to  be  one  to  thirty-one
+              characters long.
+
+          3.  Cross-referencing is performed differently  in  the  EST
+              and non-EST versions of the assemblers.
+
+              In the non-EST versions of the assemblers, listing files
+              with  cross-reference  information  in  them must be run
+              through a BSO utility program,  MREF,  before  they  are
+              readable.     The    assembler    does    not    include
+              cross-reference information in the list file by default;
+              the  "/X"  switch  must  be included in the command line
+              when cross-reference information is desired.
+
+              The EST versions of the assemblers produce listing files
+              with  readable  cross-reference  information without the
+              use of MREF.  By modifying the  assembler  command  file
+              the  user  can  make  the  assembler  default  to either
+              "include cross-reference information" or "do not include
+              cross-reference  information".   The  "/X" switch, which
+              causes inclusion of cross-reference information  in  the
+              list file, is available in both EST and non-EST versions
+              of the assemblers;  the "/V" switch,  which  causes  the
+              assembler  to  omit cross-reference information from the
+              list file, is available only  in  EST  versions  of  the
+              assemblers.
+
+          4.  In the EST version  of  the  assembler,  the  characters
+              dollar  sign  ("$")  and underscore ("_") are treated as
+              distinct  from  each   other.    They   are   considered
+              equivalent by non-EST assemblers.
+
+          5.  Due to disk I/O used for symbol storage, the performance
+              of  the  non-EST  version of the assembler may be better
+              than that of the EST version.
+
+
+                                    51
+
+
+
+
+
+
+     9.0 INSTALLING THE ASSEMBLER AND SYMBOL TABLE MANAGER
+
+     As distributed by BSO, this software should be accompanied by the
+     documentation necessary to put the program up on the host system.
+
+     Your most recent shipment of the  software  contains  the  native
+     mode  symbol  table  manager.   Before you run the assembler, you
+     must build this and make an assignment of the  executable  result
+     to "BSO_SYMBOL".  (See the Software Installation instructions for
+     instructions on building the symbol table manager.) The result of
+     the build will be a file named BSOSYM.EXE.
+
+     To allow access to this symbol table manager  by  the  assembler,
+     you must make a logical assignment of BSOSYM.EXE to "BSO_SYMBOL".
+     This is accomplished by the following command:
+
+              $ ASSIGN dev:[directory]BSOSYM.EXE BSO_SYMBOL
+
+     where "dev:[directory]  is  the  full  name  of  the  device  and
+     directory in which BSOSYM.EXE resides.  "Dev:[directory]" MUST be
+     included in the statement, regardless of the default  device  and
+     directory.   (It  is  advisable  to have your system manager make
+     this assignment permanent and  accessible  by  others;   see  the
+     Software Installation Instructions for more information.)
+
+     Should this assignment not be made, you will receive the  message
+     "Error  initializing  symbol table" when attempting to assemble a
+     program.
+
+     If you encounter any difficulty, contact BSO Customer Support  at
+     (617) 894-7800.
+
+
+
+
+
+
+      
+
+
+
+
+
+
+                      INDEX                                  
+
+
+
+
+     * symbol . . . . . . . . . . . . . . 11
+     .BYTE directive  . . . . . . . . . . 24
+     .NAM directive . . . . . . . . . . . 31
+     <> symbols . . . . . . . . . . . . . 20, 22, 30
+     = directive  . . . . . . . . . . . . 8-9, 16, 35, 38
+     ~ symbol . . . . . . . . . . . . . . 22, 30
+
+     Absolute assembly mode . . . . . . . 3
+     Absolute object files  . . . . . . . 3
+     Angle brackets . . . . . . . . . . . 20
+     AORG directive . . . . . . . . . . . 15, 38
+     Arithmetic expressions . . . . . . . 11
+     ASCII constants  . . . . . . . . . . 11
+     ASECT directive  . . . . . . . . . . 15, 38
+
+     Banner . . . . . . . . . . . . . . . 1
+     Blank lines in source  . . . . . . . 8
+     BLIST directive  . . . . . . . . . . 15, 31
+     BSO object format  . . . . . . . . . 3, 43
+     BYTE directive . . . . . . . . . . . 15
+
+     CLIST directive  . . . . . . . . . . 15, 31
+     Command files  . . . . . . . . . . . 2
+     Command line format  . . . . . . . . 1
+       examples . . . . . . . . . . . . . 6
+     Comments in source . . . . . . . . . 8, 10
+     Comments on macro lines  . . . . . . 26
+     Conditional assembly . . . . . . . . 16, 18-19, 25, 31, 50
+       listing control  . . . . . . . . . 31
+     Cross linkage editor (MLINK) . . . . 3, 10
+     Cross reference information  . . . . 51
+     Cross reference symbol table . . . . 4, 42, 51
+
+     DBYTE directive  . . . . . . . . . . 15
+     Defaults
+       cross-reference vs. no cross-reference  3-4, 42
+       file extensions  . . . . . . . . . 5
+       filetypes  . . . . . . . . . . . . 2, 34
+       form length  . . . . . . . . . . . 31
+       listing control  . . . . . . . . . 31
+       radix  . . . . . . . . . . . . . . 11, 34
+       relocatable vs. absolute assembly  5, 37
+       SECT directives  . . . . . . . . . 37
+       section name . . . . . . . . . . . 37
+     Differences  . . . . . . . . . . . . 50
+     Directives . . . . . . . . . . . . . 10, 15-16, 18-39, 50
+       6502 directives  . . . . . . . . . 16
+         =  . . . . . . . . . . . . . . . 8-9, 16, 35
+
+
+
+
+
+
+         BYTE . . . . . . . . . . . . . . 15
+         DBYTE  . . . . . . . . . . . . . 15
+         END  . . . . . . . . . . . . . . 9, 15
+         RMB  . . . . . . . . . . . . . . 16
+         WORD . . . . . . . . . . . . . . 16
+       Conditional directives . . . . . . 16, 18-19, 25-26, 31, 50
+         .ELSE  . . . . . . . . . . . . . 19, 31
+         .ENDIF . . . . . . . . . . . . . 19, 31
+         .IF  . . . . . . . . . . . . . . 18, 31
+         .IFB . . . . . . . . . . . . . . 18, 25-26, 29
+         .IFDEF . . . . . . . . . . . . . 18
+         .IFE . . . . . . . . . . . . . . 18
+         .IFGE  . . . . . . . . . . . . . 18
+         .IFGT  . . . . . . . . . . . . . 18
+         .IFIDN . . . . . . . . . . . . . 18, 25-26, 29
+         .IFLE  . . . . . . . . . . . . . 18
+         .IFLT  . . . . . . . . . . . . . 18
+         .IFN . . . . . . . . . . . . . . 18
+         .IFNB  . . . . . . . . . . . . . 18, 25-26
+         .IFNDEF  . . . . . . . . . . . . 18
+         .IFNIDN  . . . . . . . . . . . . 18, 25-26
+         ELSE . . . . . . . . . . . . . . 15
+         Example  . . . . . . . . . . . . 19
+         IFB  . . . . . . . . . . . . . . 15
+         IFDEF  . . . . . . . . . . . . . 15
+         IFE  . . . . . . . . . . . . . . 15
+         IFGE . . . . . . . . . . . . . . 15
+         IFGT . . . . . . . . . . . . . . 15
+         IFIDN  . . . . . . . . . . . . . 15
+         IFLE . . . . . . . . . . . . . . 15
+         IFLT . . . . . . . . . . . . . . 15
+         IFN  . . . . . . . . . . . . . . 15
+         IFNB . . . . . . . . . . . . . . 15
+         IFNDEF . . . . . . . . . . . . . 15
+         IFNIDN . . . . . . . . . . . . . 15
+         nesting  . . . . . . . . . . . . 19
+       Input control directives . . . . . 15, 34
+         .INCLUDE . . . . . . . . . . . . 34
+         INCLUDE  . . . . . . . . . . . . 15
+       Linker instruction directives  . . 39
+         .LINK  . . . . . . . . . . . . . 39
+       List of directives . . . . . . . . 15-16
+       Listing control directives . . . . 16, 31-33, 50
+         .BLIST . . . . . . . . . . . . . 31
+         .CLIST . . . . . . . . . . . . . 31
+         .FORMLN  . . . . . . . . . . . . 31-32
+         .GEN . . . . . . . . . . . . . . 32
+         .LIST  . . . . . . . . . . . . . 32
+         .MLIST . . . . . . . . . . . . . 31
+         .NAM . . . . . . . . . . . . . . 31, 33
+         .NCLIST  . . . . . . . . . . . . 31
+         .NLIST . . . . . . . . . . . . . 32
+         .NMLIST  . . . . . . . . . . . . 31
+
+
+
+
+
+
+         .NOGEN . . . . . . . . . . . . . 32
+         .PAGE  . . . . . . . . . . . . . 32
+         .SPACE . . . . . . . . . . . . . 32
+         .SUBTTL  . . . . . . . . . . . . 31, 33
+         BLIST  . . . . . . . . . . . . . 15
+         CLIST  . . . . . . . . . . . . . 15
+         FORMLN . . . . . . . . . . . . . 15
+         GEN  . . . . . . . . . . . . . . 15
+         LIST . . . . . . . . . . . . . . 15
+         MLIST  . . . . . . . . . . . . . 16
+         NAM  . . . . . . . . . . . . . . 16
+         NCLIST . . . . . . . . . . . . . 16
+         NLIST  . . . . . . . . . . . . . 16
+         NMLIST . . . . . . . . . . . . . 16
+         NOGEN  . . . . . . . . . . . . . 16
+         PAGE . . . . . . . . . . . . . . 16
+         SPACE  . . . . . . . . . . . . . 16
+         SUBTTL . . . . . . . . . . . . . 16
+       Local symbol block directives  . . 16, 35
+         .LOCAL . . . . . . . . . . . . . 35
+         LOCAL  . . . . . . . . . . . . . 9-10, 16
+       Macro directives . . . . . . . . . 16, 20-24, 50
+         .ENDM  . . . . . . . . . . . . . 20-21
+         .MACRO . . . . . . . . . . . . . 20-21, 35
+         ENDM . . . . . . . . . . . . . . 9, 15
+         MACRO  . . . . . . . . . . . . . 8-9, 16
+       Printout directives  . . . . . . . 16, 35
+         .MESSG . . . . . . . . . . . . . 35
+         MESSG  . . . . . . . . . . . . . 9, 16
+       Radix control directives . . . . . 16, 34
+         .RADIX . . . . . . . . . . . . . 34
+         RADIX  . . . . . . . . . . . . . 9, 11, 16
+       Relocation directives  . . . . . . 16, 36-39, 50
+         .EXTERN  . . . . . . . . . . . . 39
+         .INTERN  . . . . . . . . . . . . 39
+         AORG . . . . . . . . . . . . . . 15
+         EXTERN . . . . . . . . . . . . . 9, 15
+         INTERN . . . . . . . . . . . . . 9, 15
+         LINK . . . . . . . . . . . . . . 9, 15
+         Organization directives  . . . . 9, 36-38
+           .AORG  . . . . . . . . . . . . 38
+           .ASECT . . . . . . . . . . . . 38
+           .ORG . . . . . . . . . . . . . 38
+           .RORG  . . . . . . . . . . . . 38
+           .RSECT . . . . . . . . . . . . 38
+           .SECT  . . . . . . . . . . . . 36-37
+           .ZORG  . . . . . . . . . . . . 38
+           .ZSECT . . . . . . . . . . . . 38
+           ASECT  . . . . . . . . . . . . 15
+           RSECT  . . . . . . . . . . . . 16
+           SECT . . . . . . . . . . . . . 9, 16
+           ZORG . . . . . . . . . . . . . 16
+           ZSECT  . . . . . . . . . . . . 16
+
+
+
+
+
+
+         RORG . . . . . . . . . . . . . . 16
+       Repeat directives  . . . . . . . . 16, 27-30, 50
+         .ENDR  . . . . . . . . . . . . . 27, 29
+         .IRP . . . . . . . . . . . . . . 28-29
+         .IRPC  . . . . . . . . . . . . . 27-28
+         .REPT  . . . . . . . . . . . . . 29
+         ENDR . . . . . . . . . . . . . . 9, 15
+         IRP  . . . . . . . . . . . . . . 15
+         IRPC . . . . . . . . . . . . . . 15
+         REPT directive . . . . . . . . . 16
+
+     ELSE directive . . . . . . . . . . . 15, 19, 31
+     END directive  . . . . . . . . . . . 9, 15
+     ENDIF directive  . . . . . . . . . . 31
+     ENDM directive . . . . . . . . . . . 9, 15, 20-21
+     ENDR directive . . . . . . . . . . . 9, 15, 27
+     Error handling . . . . . . . . . . . 3, 44
+       program errors . . . . . . . . . . 44-46
+       system errors  . . . . . . . . . . 47-49
+     Examples
+       command line . . . . . . . . . . . 1, 6
+       conditional assembly . . . . . . . 19
+       indirect command file  . . . . . . 2
+       input control  . . . . . . . . . . 34
+       local symbol blocks  . . . . . . . 10, 35
+       macro call . . . . . . . . . . . . 26, 29
+         using brackets . . . . . . . . . 30
+       macro definition . . . . . . . . . 20
+       macro nesting  . . . . . . . . . . 23-24
+       macro use  . . . . . . . . . . . . 20-23
+         with conditionals  . . . . . . . 25
+       radix control  . . . . . . . . . . 34
+       relocation control . . . . . . . . 39
+       repeat directives  . . . . . . . . 27-29
+         nested . . . . . . . . . . . . . 27
+     Exit status  . . . . . . . . . . . . 2
+     Exiting the assembler  . . . . . . . 2
+     Expression operators . . . . . . . . 12
+     Expressions  . . . . . . . . . . . . 11-12
+     Extended Symbol Table capabilities (EST)  51
+     EXTERN directive . . . . . . . . . . 9, 15, 39
+
+     Fields in source . . . . . . . . . . 8
+     File formats . . . . . . . . . . . . 40
+       BSO object file format . . . . . . 3, 43
+       listing file format  . . . . . . . 40
+         cross reference symbol table . . 42
+         fields . . . . . . . . . . . . . 40
+           address field  . . . . . . . . 40
+           data field . . . . . . . . . . 40
+           error field  . . . . . . . . . 40
+           sequence field . . . . . . . . 41
+           source field . . . . . . . . . 41
+
+
+
+
+
+
+         heading  . . . . . . . . . . . . 40
+         symbol table . . . . . . . . . . 41
+       object file format . . . . . . . . 43
+       source program . . . . . . . . . . 8-10
+     FORMLN directive . . . . . . . . . . 15, 31-32
+
+     GEN directive  . . . . . . . . . . . 15, 32
+
+     Help . . . . . . . . . . . . . . . . 3
+
+     IF directive . . . . . . . . . . . . 18, 31
+     IFB directive  . . . . . . . . . . . 15, 18, 25-26, 29
+     IFDEF directive  . . . . . . . . . . 15, 18
+     IFE directive  . . . . . . . . . . . 15, 18
+     IFGE directive . . . . . . . . . . . 15, 18
+     IFGT directive . . . . . . . . . . . 15, 18
+     IFIDN directive  . . . . . . . . . . 15, 18, 25-26, 29
+     IFLE directive . . . . . . . . . . . 15, 18
+     IFLT directive . . . . . . . . . . . 15, 18
+     IFN directive  . . . . . . . . . . . 15, 18
+     IFNB directive . . . . . . . . . . . 15, 18, 25-26
+     IFNDEF directive . . . . . . . . . . 15, 18
+     IFNIDN directive . . . . . . . . . . 15, 18, 25-26
+     INCLUDE directive  . . . . . . . . . 9, 15, 34
+     Installation . . . . . . . . . . . . 52
+     Instruction field  . . . . . . . . . 10
+     Instructions . . . . . . . . . . . . 10, 14
+     INTERN directive . . . . . . . . . . 9, 15, 39
+     IRP directive  . . . . . . . . . . . 15, 29
+     IRPC directive . . . . . . . . . . . 15
+
+     Labels . . . . . . . . . . . . . . . 8-9
+       local labels . . . . . . . . . . . 9
+     LINK directive . . . . . . . . . . . 9, 15
+     Linker . . . . . . . . . . . . . . . 3, 10
+     LIST directive . . . . . . . . . . . 15
+     Listing control  . . . . . . . . . . 16, 31-33, 50
+     Listing file . . . . . . . . . . . . 1-4, 40
+     Listing options  . . . . . . . . . . 4
+       cross-reference mode . . . . . . . 4
+       omit symbol table  . . . . . . . . 4
+       short listing forms  . . . . . . . 4
+     LOCAL directive  . . . . . . . . . . 9-10, 16, 35
+     Local labels . . . . . . . . . . . . 9
+       example  . . . . . . . . . . . . . 10
+     Local symbol block . . . . . . . . . 9
+     Location counter
+       adjusting the value  . . . . . . . 38
+
+     Macro  . . . . . . . . . . . . . . . 3
+     MACRO directive  . . . . . . . . . . 8-9, 16, 20-21, 35
+     Macro facility . . . . . . . . . . . 10, 20-24, 50
+       arguments in angle brackets  . . . 29-30
+
+
+
+
+
+
+       comments on macro lines  . . . . . 26
+       listing control  . . . . . . . . . 31
+       macro definition . . . . . . . . . 20
+         argument limit . . . . . . . . . 20
+         dummy arguments  . . . . . . . . 20-22
+         example  . . . . . . . . . . . . 20
+         in a separate file . . . . . . . 34
+       macro use  . . . . . . . . . . . . 20-22
+         example  . . . . . . . . . . . . 20
+       nesting  . . . . . . . . . . . . . 23-24
+         example  . . . . . . . . . . . . 23-24
+       use with conditionals  . . . . . . 25
+         example  . . . . . . . . . . . . 25
+     MESSG directive  . . . . . . . . . . 9, 16, 35
+     MLINK  . . . . . . . . . . . . . . . 3, 10
+     MLIST directive  . . . . . . . . . . 16, 31
+     Mos technology format  . . . . . . . 3
+
+     NAM directive  . . . . . . . . . . . 16
+     NCLIST directive . . . . . . . . . . 16, 31
+     NLIST directive  . . . . . . . . . . 16
+     NMLIST directive . . . . . . . . . . 16, 31
+     NOGEN directive  . . . . . . . . . . 16, 32
+     Numeric constants  . . . . . . . . . 11
+       radix suffixes . . . . . . . . . . 11
+
+     Object file  . . . . . . . . . . . . 1, 3, 43
+     Object file format . . . . . . . . . 43
+     Object file options  . . . . . . . . 5
+       absolute assembly mode . . . . . . 3
+       relocatable assembly mode  . . . . 3, 5
+     Operand field  . . . . . . . . . . . 10
+     Operands . . . . . . . . . . . . . . 10
+     Operating instructions . . . . . . . 1
+     Operators  . . . . . . . . . . . . . 12
+
+     PAGE directive . . . . . . . . . . . 16
+     Periods, leading in labels . . . . . 9
+     Permanent labels . . . . . . . . . . 8-9
+     Program entry  . . . . . . . . . . . 8
+     Prompt . . . . . . . . . . . . . . . 1
+     Pseudo-ops (see also Directives) . . 15
+
+     Radix  . . . . . . . . . . . . . . . 11
+       default radix  . . . . . . . . . . 11
+     RADIX directive  . . . . . . . . . . 9, 11, 16, 34
+     Relocatable assembly mode  . . . . . 2-3, 5
+     Relocation control . . . . . . . . . 16, 36-39, 50
+     REPT directive . . . . . . . . . . . 16
+     RMB directive  . . . . . . . . . . . 16
+     RORG directive . . . . . . . . . . . 16, 38
+     RSECT directive  . . . . . . . . . . 16, 38
+     Running the assembler  . . . . . . . 1
+
+
+
+
+
+
+     Sample commands  . . . . . . . . . . 6
+     SECT directive . . . . . . . . . . . 9, 16, 38
+     Section names  . . . . . . . . . . . 38
+     Short listing forms  . . . . . . . . 4
+     Short listing lines  . . . . . . . . 4
+     Source files . . . . . . . . . . . . 1-2
+     Source program . . . . . . . . . . . 8-10
+       format . . . . . . . . . . . . . . 8-10
+         blank lines  . . . . . . . . . . 8
+         fields . . . . . . . . . . . . . 8-10
+           comment field  . . . . . . . . 10
+           instruction field  . . . . . . 10
+           label field  . . . . . . . . . 8
+           labels . . . . . . . . . . . . 9-10
+             local labels . . . . . . . . 9-10
+           operand field  . . . . . . . . 10
+     Source program preparation . . . . . 8
+     SPACE directive  . . . . . . . . . . 16
+     Special characters . . . . . . . . . 13
+     SUBTTL directive . . . . . . . . . . 16, 31
+     Summary of differences . . . . . . . 50
+     Switches . . . . . . . . . . . . . . 2-5
+       /A switch  . . . . . . . . . . . . 3, 5
+       /H switch  . . . . . . . . . . . . 3
+       /M switch  . . . . . . . . . . . . 3, 5, 20, 49
+       /N switch  . . . . . . . . . . . . 3
+       /R switch  . . . . . . . . . . . . 3, 5
+       /S switch  . . . . . . . . . . . . 4
+       /T switch  . . . . . . . . . . . . 4
+       /V switch  . . . . . . . . . . . . 4, 51
+       /X switch  . . . . . . . . . . . . 4, 51
+     Symbol table . . . . . . . . . . . . 4, 41, 51-52
+     Symbols  . . . . . . . . . . . . . . 8-10, 50-51
+     Symbols in expressions . . . . . . . 11
+
+     Tektronix emulator . . . . . . . . . 9
+     Temporary labels (see also Local labels)  9
+     TITLE directive  . . . . . . . . . . 33
+
+     Using this manual  . . . . . . . . . 7
+
+     WORD directive . . . . . . . . . . . 16
+
+     ZORG directive . . . . . . . . . . . 16, 38
+     ZSECT directive  . . . . . . . . . . 16, 38
+
+
+
+
+
+
+
+                        HOW TO REPORT DOCUMENTATION
+                           AND SOFTWARE PROBLEMS
+
+
+
+     Documentation:
+
+     At BSO we are constantly striving to improve the quality  of  our
+     documentation.    If  you  have  had  any  trouble  locating  the
+     information you need, or have found parts of this  manual  to  be
+     unclear  or  inaccurate,  we  would  appreciate hearing from you.
+     Please use the general purpose form on the following page.
+
+
+
+     Software:
+
+     In the event you  encounter  a  problem  with  your  use  of  BSO
+     software,  please  report  the difficulty to us by mailing in the
+     following three items:
+
+          1.  The PROBLEM AND SUGGESTION  REPORT  on  the  next  page,
+              giving  a  description  of the software problem.  Please
+              fill in all requested information.
+
+          2.  A small SAMPLE PROGRAM which illustrates the problem you
+              encountered.   We  need  the  source code of your sample
+              program ON WHATEVER  MEDIUM  (tape  or  disk)  YOUR  BSO
+              SOFTWARE ARRIVED.  If an updated version of the software
+              becomes necessary, we will send it to you on the tape or
+              disk  you  have  provided  (assuming  you  are currently
+              covered under a  new  product  warranty  or  a  software
+              maintenance contract).
+
+          3.  TERMINAL SESSIONS and/or LISTINGS of your sample program
+              with  arrows  and comments to indicate where the problem
+              occurred.
+
+     This information has proven to be  essential  for  the  effective
+     processing  of  any  software  problems.   Your  co-operation  in
+     sending the above three items, plus  any  additional  information
+     that  might  prove  helpful, such as command files, object files,
+     listing files, relocatable binary (ROB) files, etc., will  result
+     in the speediest possible handling of your problem.
+
+
+
+
+
+
+                      THE BOSTON SYSTEMS OFFICE, INC.
+                       PROBLEM AND SUGGESTION REPORT
+
+
+     NOTE:  If you are reporting a software problem, DO  NOT  send  in
+     this  form  alone.   Please  see the previous page for additional
+     required information.
+
+
+     Product:                                    Version:
+     -----------------------------------------------------------------
+     Distribution medium (mag tape, floppy, RK-05, etc.):
+     -----------------------------------------------------------------
+     Reported by:                                Date:
+     -----------------------------------------------------------------
+     Company:                                    Phone:
+     -----------------------------------------------------------------
+     Address
+     -----------------------------------------------------------------
+     Host computer/operating system:
+     -----------------------------------------------------------------
+
+     Comments regarding software or documentation:
+     -----------------------------------------------------------------
+
+     -----------------------------------------------------------------
+
+     -----------------------------------------------------------------
+
+     -----------------------------------------------------------------
+
+     -----------------------------------------------------------------
+
+     -----------------------------------------------------------------
+
+     -----------------------------------------------------------------
+
+     -----------------------------------------------------------------
+
+     -----------------------------------------------------------------
+
+     -----------------------------------------------------------------
+
+     -----------------------------------------------------------------
+
+     Please  mail  this   form,   along   with   additional   required
+     information, to:
+
+                        Boston Systems Office, Inc.
+                           128 Technology Center
+                           Waltham MA 02254-9164
