@@ -1,0 +1,87 @@
+;  filename CJTB.MAC
+;  Re-created from ROM 
+;  Dan Boris 2/13/2022
+;  start: CCE0
+
+.RADIX	16
+
+	JMP ISND  
+	JMP PKDR
+	JMP CJTB1
+	JMP CJTB2
+	JMP CJTB3
+
+.BYTE 01,01,01,01,07,01,01,01,01,01,01,01,01,01,01,01,01
+.BYTE 08,01,01,01,08,08,05,05,08,01,00,0D,14,10,18,03            
+.BYTE 06,09,1F,23,1B,24,27,2A,2E,32,36,3A,3B,3D,3F,40  
+.BYTE 41,42,43,44,46,02,02,03,03,00,02,02,02,03,00,02
+.BYTE 00,02,03,03,03,03,00,01,01,00,00,00,00,00,00,03
+
+CJTB1:
+     sta  A,SN.NUM
+     tya  
+     pha  
+     txa  
+     pha  
+     ldx  A,SN.NUM
+     lda  x,^HCCEF
+     sta  A,TEMP1
+     lda  x,^HCD0A
+     sta  A,TEMP2
+     lda  x,^HCD25
+     sta  A,TEMP3  
+     beq  CJTB4
+     sei  
+     jsr  ^HCE7C
+     cli  
+	 
+CJTB4:
+     ldx  A,TEMP1
+     lda  A,TEMP2
+     jsr  STUNE
+     inc  A,TEMP1
+     inc  A,TEMP2
+     dec  A,TEMP3  
+     bpl  CJTB4
+     pla  
+     tax  
+     pla  
+     tay  
+     rts 
+
+CJTB2:
+     tya  
+     pha  
+     txa  
+     pha  
+     lda  EN.HEI
+     and  #^H1F
+     adc  #^H02
+     sta  RS.DPL + 4
+     ldx  #^H05
+     lda  #^H19
+     jsr  STUNE
+     pla  
+     tax  
+     pla  
+     tay  
+     rts  
+
+CJTB3:
+      tya  
+      pha  
+      txa  
+      pha  
+      lda  PKR1
+      and  #^H1F
+      adc  #^H20
+      sta  RS.DOT + 4
+      ldx  #^H06
+      lda  #^H1A
+      jsr  STUNE
+      pla  
+      tax  
+      pla  
+      tay  
+      rts  
+

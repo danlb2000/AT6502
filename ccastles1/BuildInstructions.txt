@@ -1,0 +1,94 @@
+The files in this repository are designed to re-create the Crystal Castles ROM from the source code in 
+this repository: 
+
+https://github.com/historicalsource/crystal-castles
+
+The ROMs created from this source are a match for the MAME ccastles1 set. It will create 
+the following ROMs:
+ 
+136022-101.1F
+136022-102.1H
+136022-103.1K
+136022-104.1L
+136022-105.1N
+
+You will need to use the 136022-106.8d and 136022-107.8b ROMS (sprite graphics) and the PROM file 
+from the base set.
+
+To assemble the ROMs put the contents of the historical source repository, the files from this 
+repository and the assembler into a single directory. You will need to make the changes listed
+below to the source files. Finally run make.bat to assembler the ROMS.
+
+The following changes will need to be made in the source code for it to assembler property.
+
+Cxx.DAT: 
+In all the Cxx.DAT files each .BYTE statement needs to be on a different line. 
+
+
+CRF.MAC:
+Change 
+.VCTRS 0FFF8,INTER,INTER,START,INTER 
+To
+.VCTRS INTER,INTER,START,INTER
+
+Reason: The way the code is written, the line assembles at memory location FFF8 so having 5 words 
+does make sense since it would go past the end of memory. Not sure why it is this way in the code.
+
+Remove: 
+.error	;  dummy
+
+Reason: The .error pseudo-op raises an arbitrary error which in theory would prevent the assembler
+from completing. Without know then exact behavior of the original assembler I decided to just remove 
+this line.
+
+
+Rename HLL65F.MAC to HLL65F
+
+Reason: The code includes HLL65F without the extension. I can only assume that the original 
+assembler looked for both versions of the file, but I decided to just re-name the file. 
+
+
+Add CJTB.MAC
+Reason: This file is missing in the source that is currently available. It contains a patch to 
+the standard Pokey music library. I have re-created this file from the original ROMS.
+
+
+CEN.MAC
+Change:
+;  table of addresses for state handlers
+1$:	10$-1,11$-1,12$-1,13$-1,14$-1,15$-1
+	16$-1,17$-1,18$-1,19$-1
+	20$-1,21$-1,22$-1,23$-1,24$-1,25$-1,26$-1
+to
+;  table of addresses for state handlers
+1$:	.WORD 10$-1,11$-1,12$-1,13$-1,14$-1,15$-1
+	.WORD 16$-1,17$-1,18$-1,19$-1
+	.WORD 20$-1,21$-1,22$-1,23$-1,24$-1,25$-1,26$-1
+
+Reason: I assume the original assembler assumed these lines are a list of WORD, but I decided 
+if would be easier to add the .WORD pseudo-op for this edge case.
+
+
+CCUBE.MAC:
+Change CLENGTH to CLENGT
+Reason: My assumption here is that the assembler only allowed labels that up to 6 characters long,
+so any characters beyond that would not be significant. This is another case where I thought 
+it would be better to modify the code.
+
+
+CG.MAC:
+Update checksums
+;  checksums
+CHK01	= 0FC
+CHK02	= 0A8
+CHK03	= 14
+CHK04	= 08
+CHK05	= 0EC
+
+Reason: The syntax for the checksums found in the code was likely a placeholder for the actual 
+checksum. This code replaces those with the actual values needed for the ROMS to pass the checksum test in the game.
+
+If you make changes to the code you will need to update the checksums. To do this, first set all five checksums to 0.
+Next run the make file and it will display the correct checksums for each ROM. Put these checksums in the file
+in place of the zeros, being sure to put a leading zero on all hex values. Not re-run the make and the checksum
+for each ROM should now be zero.

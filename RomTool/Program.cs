@@ -24,11 +24,19 @@ namespace RomTool
     {
         static void Main(string[] args)
         {
+
+
             var commandLine = new CommandLineParser();
             commandLine.ParseCommandLine(args);
 
+            if (!File.Exists(commandLine.SourceFile)) {
+                Console.WriteLine("Cannot find source file");
+                return;
+            }
+
             var fullRom = File.ReadAllBytes(commandLine.SourceFile);
             var rom = GetSegment(fullRom, commandLine.Start, commandLine.Length);
+            HandleChecksum(commandLine, rom);
             File.WriteAllBytes(commandLine.DestFile, rom);
         }
 
@@ -103,6 +111,7 @@ namespace RomTool
                 checksum = (byte)(checksum ^ d);
             }
 
+            Console.WriteLine(string.Format("{0:X2}", checksum));
             checksum = (byte)(checksum ^ romNum);
             return checksum;
         }
